@@ -17,21 +17,28 @@
 #define ON  1u
 #define OFF 0u
 
-// Buzzer (RA2) y LED aqua (RA1)
+// Buzzer (RA2)
 #define BUZZ_TRIS  TRISAbits.TRISA2
 #define BUZZ_LAT   LATAbits.LATA2
+// LED aqua (RA1)
 #define LEDA_TRIS  TRISAbits.TRISA1
 #define LEDA_LAT   LATAbits.LATA1
+// Timer0 para 1 Hz en RA1 (toggle cada 0.5 s): preload 0xF0BE con 1:256
+#define TMR0_PRELOAD_H  0xF0
+#define TMR0_PRELOAD_L  0xBE
 
 // Entradas
+// Botón para bloquear conteo al poner 5V
 #define BTN_EMG_TRIS  TRISBbits.TRISB0
+#define BTN_EMG_PORT  PORTBbits.RB0
+// Botón para resetear conteo al poner 5V
 #define BTN_RST_TRIS  TRISBbits.TRISB1
-#define BTN_RC1_TRIS  TRISCbits.TRISC1
-#define BTN_EMG_PORT  PORTBbits.RB0   // alto = EMERGENCIA
 #define BTN_RST_PORT  PORTBbits.RB1   // flanco 0->1 = reset
+// Botón para contar cuando al poner 0V
+#define BTN_RC1_TRIS  TRISCbits.TRISC1
 #define BTN_RC1_PORT  PORTCbits.RC1   // flanco 1->0 = paso (pull-up externo)
 
-// RGB (RE0=B, RE1=G, RE2=R) - común cátodo
+// RGB (RE0=B, RE1=G, RE2=R) - Cátodo
 #define RGB_R_TRIS  TRISEbits.TRISE2
 #define RGB_G_TRIS  TRISEbits.TRISE1
 #define RGB_B_TRIS  TRISEbits.TRISE0
@@ -39,9 +46,7 @@
 #define RGB_G_LAT   LATEbits.LATE1
 #define RGB_B_LAT   LATEbits.LATE0
 
-// Timer0 para 1 Hz en RA1 (toggle cada 0.5 s): preload 0xF0BE con 1:256
-#define TMR0_PRELOAD_H  0xF0
-#define TMR0_PRELOAD_L  0xBE
+// Display 7 segmentos
 
 // ===== Estado =====
 volatile uint8_t unidades=0, decenas=0;
@@ -102,7 +107,7 @@ void main(void){
     }
 }
 
-// ===== Implementación =====
+// ===== Initialize Hardware =====
 void init_hw(void){
     // Reloj interno 8 MHz
     OSCCONbits.IRCF = 0b111;
@@ -113,15 +118,20 @@ void init_hw(void){
     CMCON  = 0x07;
 
     // Display: SOLO RD0..RD3 como salidas; RD4..RD7 quedan INPUT
-    TRISD = 0xF0;              // 1111 0000
+    TRISD = 0b11110000; // Entradas Salidas
     LATD  = (LATD & 0xF0);     // limpia nibble bajo sin tocar D7..D4
 
     // RGB (RE2=R, RE1=G, RE0=B)
-    RGB_R_TRIS = 0; RGB_G_TRIS = 0; RGB_B_TRIS = 0; LATE = 0x00;
+    RGB_R_TRIS = 0;
+    RGB_G_TRIS = 0;
+    RGB_B_TRIS = 0;
+    LATE = 0b00000000;
 
     // Buzzer (RA2) y LED aqua (RA1)
-    BUZZ_TRIS = 0; BUZZ_LAT = 0;
-    LEDA_TRIS = 0; LEDA_LAT = 0;
+    BUZZ_TRIS = 0;
+    BUZZ_LAT = 0;
+    LEDA_TRIS = 0;
+    LEDA_LAT = 0;
 
     // Entradas
     BTN_EMG_TRIS = 1;   // RB0
@@ -136,15 +146,19 @@ void init_hw(void){
 }
 
 void tmr0_start(void){
-    T0CONbits.TMR0ON=0;
-    T0CONbits.T08BIT=0;    // 16 bits
-    T0CONbits.T0CS  =0;    // Fosc/4
-    T0CONbits.PSA   =0;    // usa prescaler
-    T0CONbits.T0PS2 =1;    // 1:256
-    T0CONbits.T0PS1 =1;
-    T0CONbits.T0PS0 =1;
-
-    INTCON2bits.TMR0IP=1;
+    // T0CON: [TMR0ON T08BIT T0CS T0SE PSA T0PS2 T0PS1 T0PS0] = [7:0]
+    T0CON = 0b00000001
+    // TMR0ON=0: Stops timer 0;
+    // T08BIT=0: Timer0 is configured as a 16-bit timer/counter ;
+    // T0CS  =0: Internal instruction cycle clock (CLKO);
+    // T0SE  =0: Increment on low-to-high transition on T0CKI pin;
+    // PSA   =0: Timer0 prescaler is assigned;
+    // T0PS2 =0; // 1:4 el minimo para que quepa 64k / 250k con 1MHz
+    // T0PS1 =0;
+    // T0PS0 =1;
+    
+    
+    INTCON2bits.TMR0IP=;
     INTCONbits.TMR0IF =0;
     INTCONbits.TMR0IE =1;
 
