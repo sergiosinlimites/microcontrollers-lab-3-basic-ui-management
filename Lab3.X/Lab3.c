@@ -3,16 +3,13 @@
 #define _XTAL_FREQ 8000000UL
 
 // ==================== CONFIG (MCLRE OFF) ====================
-#pragma config PLLDIV=1, CPUDIV=OSC1_PLL2, USBDIV=1
-#pragma config FOSC=INTOSCIO_EC, FCMEN=OFF, IESO=OFF
-#pragma config PWRT=OFF, BOR=OFF, VREGEN=OFF
-#pragma config WDT=OFF // Perro guardin
-#pragma config PBADEN=OFF // Funciones análogas
-#pragma config MCLRE=OFF, LPT1OSC=OFF, CCP2MX=ON
-#pragma config STVREN=ON, ICPRT=OFF, XINST=OFF, DEBUG=OFF
-#pragma config LVP=OFF // Liberar pines
+#pragma config WDT=OFF                                       //Desactiva el Watchdog
+#pragma config LVP=OFF                                        //Desactiva el Low-Voltage Programming
+#pragma config PBADEN = OFF                               //PORTB digital al inicio (RB0?RB4 no analÃ³gicos)
+#pragma config MCLRE=ON                                    //Masster clear habilitado
+#pragma config FOSC = EC_EC                                // Reloj externo del Cristal (CLKIN en RA6)
 
-// ===== Parámetros =====
+// ===== Par?metros =====
 #define BEEP_PERIOD_US 250u
 #define ON  1u
 #define OFF 0u
@@ -28,17 +25,17 @@
 #define TMR0_PRELOAD_L  0xBE
 
 // Entradas
-// Botón para bloquear conteo al poner 5V
+// Bot?n para bloquear conteo al poner 5V
 #define BTN_EMG_TRIS  TRISBbits.TRISB0
 #define BTN_EMG_PORT  PORTBbits.RB0
-// Botón para resetear conteo al poner 5V
+// Bot?n para resetear conteo al poner 5V
 #define BTN_RST_TRIS  TRISBbits.TRISB1
 #define BTN_RST_PORT  PORTBbits.RB1   // flanco 0->1 = reset
-// Botón para contar cuando al poner 0V
+// Bot?n para contar cuando al poner 0V
 #define BTN_RC1_TRIS  TRISCbits.TRISC1
 #define BTN_RC1_PORT  PORTCbits.RC1   // flanco 1->0 = paso (pull-up externo)
 
-// RGB (RE0=B, RE1=G, RE2=R) - Cátodo
+// RGB (RE0=B, RE1=G, RE2=R) - C?todo
 #define RGB_R_TRIS  TRISEbits.TRISE2
 #define RGB_G_TRIS  TRISEbits.TRISE1
 #define RGB_B_TRIS  TRISEbits.TRISE0
@@ -97,7 +94,7 @@ void main(void){
         }
         last_rc1 = rc1;
 
-        // RB1: reset (flanco 0->1), mantiene si ya habías ?empezado?
+        // RB1: reset (flanco 0->1), mantiene si ya hab?as ?empezado?
         uint8_t rb1 = BTN_RST_PORT;
         if (last_rb1==0 && rb1==1){
             reset_to_zero(started);     // 00 y magenta si started=1; negro si no
@@ -147,7 +144,7 @@ void init_hw(void){
 
 void tmr0_start(void){
     // T0CON: [TMR0ON T08BIT T0CS T0SE PSA T0PS2 T0PS1 T0PS0] = [7:0]
-    T0CON = 0b00000001
+    T0CON = 0b00000001;
     // TMR0ON=0: Stops timer 0;
     // T08BIT=0: Timer0 is configured as a 16-bit timer/counter ;
     // T0CS  =0: Internal instruction cycle clock (CLKO);
@@ -158,7 +155,7 @@ void tmr0_start(void){
     // T0PS0 =1;
     
     
-    INTCON2bits.TMR0IP=;
+    INTCON2bits.TMR0IP=1;
     INTCONbits.TMR0IF =0;
     INTCONbits.TMR0IE =1;
 
@@ -172,7 +169,7 @@ void sevenseg_bcd(uint8_t d){
     LATD = (LATD & 0xF0) | v;      // solo nibble bajo
 }
 
-// RE2=R, RE1=G, RE0=B (común cátodo: 1=encendido)
+// RE2=R, RE1=G, RE0=B (com?n c?todo: 1=encendido)
 void rgb_set(uint8_t r, uint8_t g, uint8_t b){
     RGB_R_LAT = r ? 1 : 0;
     RGB_G_LAT = g ? 1 : 0;
@@ -228,6 +225,6 @@ void reset_to_zero(uint8_t keep_started){
     finished = 0;
     sevenseg_bcd(0);
     if (keep_started){ set_rgb_by_decena(0); }  // magenta si ya estaba iniciado
-    else              { rgb_set(OFF,OFF,OFF); } // negro si aún no había iniciado
+    else              { rgb_set(OFF,OFF,OFF); } // negro si a?n no hab?a iniciado
     started = keep_started;
 }
