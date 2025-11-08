@@ -157,8 +157,8 @@ void tmr0_start(void){
     // T0PS1 =0;
     // T0PS0 =1;
     
-    
-    INTCON2bits.TMR0IP=;
+    // INTCON2 = [RBPU INTEDG0 INTEDG1 INTEDG2 - TMR0IP - RBIP]
+    INTCON2bits.TMR0IP=0; // Baja prioridad para overflow interrupt timer0
     INTCONbits.TMR0IF =0;
     INTCONbits.TMR0IE =1;
 
