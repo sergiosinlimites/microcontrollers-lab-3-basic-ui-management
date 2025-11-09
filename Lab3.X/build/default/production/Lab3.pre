@@ -5669,21 +5669,20 @@ unsigned char __t3rd16on(void);
 
 
 # 6 "Lab3.c"
-#pragma config PLLDIV=1, CPUDIV=OSC1_PLL2, USBDIV=1
-#pragma config FOSC=INTOSCIO_EC, FCMEN=OFF, IESO=OFF
-#pragma config PWRT=OFF, BOR=OFF, VREGEN=OFF
 #pragma config WDT=OFF
-#pragma config PBADEN=OFF
-#pragma config MCLRE=OFF, LPT1OSC=OFF, CCP2MX=ON
-#pragma config STVREN=ON, ICPRT=OFF, XINST=OFF, DEBUG=OFF
 #pragma config LVP=OFF
+#pragma config PBADEN = OFF
+#pragma config MCLRE=ON
+#pragma config FOSC = HS
 
-# 48
+# 52
+volatile uint8_t vdd_low = 0;
 volatile uint8_t unidades=0, decenas=0;
 volatile uint8_t started=0, finished=0;
-
+volatile uint8_t emg_latched = 0;
 
 void init_hw(void);
+void hlvd_init_4v(void);
 void tmr0_start(void);
 void sevenseg_bcd(uint8_t d);
 void rgb_set(uint8_t r, uint8_t g, uint8_t b);
@@ -5694,44 +5693,113 @@ void reset_to_zero(uint8_t keep_started);
 
 
 void __interrupt(high_priority) high_isr(void){
-if (INTCONbits.TMR0IF){
-INTCONbits.TMR0IF = 0;
-TMR0H = 0xF0;
-TMR0L = 0xBE;
-LATAbits.LATA1 ^= 1;
+if (INT0IF){
+emg_latched = 1;
+rgb_set(1u,0u,0u);
+INT0IF = 0;
 }
+if(HLVDIF){
+HLVDIF = 0;
+if(VDIRMAG == 0){
+vdd_low = 1;
+VDIRMAG = 1;
+} else {
+vdd_low = 0;
+VDIRMAG = 0;
+}
+}
+}
+
+void __interrupt(low_priority) low_isr(void){
+if (TMR0IF){
+TMR0IF = 0;
+
+if (vdd_low){
+TMR0H = 0xDC;
+TMR0L = 0x24;
+} else {
+TMR0H = 0x70;
+TMR0L = 0x91;
+}
+
+LATA1 ^= 1;
+}
+
 }
 
 
 void main(void){
-init_hw();
+
+ADCON1 = 0x0F;
+TRISE = 0b1000;
+LATE = 0b1000;
+
+TRISA2 = 0; LATA2 = 0;
+TRISA1 = 0; LATA1 = 0;
+
+TRISB0 = 1;
+TRISB1 = 1;
+TRISC1 = 1;
+RBPU = 1;
+
+
+IPEN = 1;
+GIEH = 1;
+GIEL = 1;
+INTEDG0 = 1;
+INT0IF = 0;
+INT0IE = 1;
+
+
+_delay((unsigned long)((2)*(4700000UL/4000.0)));
+if (RB0) {
+emg_latched = 1;
+rgb_set(1u,0u,0u);
+
+}
+
+
+hlvd_init_4v();
+
+
 tmr0_start();
 
+
+if (!emg_latched) {
+TRISD = 0b11110000;
+LATD = (LATD & 0xF0);
 sevenseg_bcd(0);
 rgb_set(0u,0u,0u);
-started = 0; finished = 0;
+started = 0;
+finished = 0;
+}
+
 
 uint8_t last_rc1 = 1;
 uint8_t last_rb1 = 0;
 
-while(1){
+while (1) {
 
-if (PORTBbits.RB0){ rgb_set(1u,0u,0u); _delay((unsigned long)((10)*(8000000UL/4000.0))); continue; }
+if (emg_latched) {
+rgb_set(1u,0u,0u);
+_delay((unsigned long)((50)*(4700000UL/4000.0)));
+continue;
+}
 
 
-uint8_t rc1 = PORTCbits.RC1;
-if (last_rc1==1 && rc1==0){
-if (!started && !finished){ started = 1; set_rgb_by_decena(0); }
+uint8_t rc1 = RC1;
+if (last_rc1 == 1 && rc1 == 0) {
+if (!started && !finished) { started = 1; set_rgb_by_decena(0); }
 advance_one_press();
-_delay((unsigned long)((60)*(8000000UL/4000.0)));
+_delay((unsigned long)((50)*(4700000UL/4000.0)));
 }
 last_rc1 = rc1;
 
 
-uint8_t rb1 = PORTBbits.RB1;
-if (last_rb1==0 && rb1==1){
+uint8_t rb1 = RB1;
+if (last_rb1 == 0 && rb1 == 1) {
 reset_to_zero(started);
-_delay((unsigned long)((60)*(8000000UL/4000.0)));
+_delay((unsigned long)((50)*(4700000UL/4000.0)));
 }
 last_rb1 = rb1;
 }
@@ -5740,51 +5808,45 @@ last_rb1 = rb1;
 
 void init_hw(void){
 
-OSCCONbits.IRCF = 0b111;
-OSCCONbits.SCS = 0b10;
+}
+
+void hlvd_init_4v(void){
 
 
-ADCON1 = 0x0F;
-CMCON = 0x07;
+HLVDCON = 0b00000000;
+
+HLVDCONbits.HLVDL3 = 1;
+HLVDCONbits.HLVDL2 = 0;
+HLVDCONbits.HLVDL1 = 1;
+HLVDCONbits.HLVDL0 = 1;
 
 
-TRISD = 0xF0;
-LATD = (LATD & 0xF0);
+VDIRMAG = 0;
+HLVDEN = 1;
+while (!IRVST);
 
-
-TRISEbits.TRISE2 = 0; TRISEbits.TRISE1 = 0; TRISEbits.TRISE0 = 0; LATE = 0x00;
-
-
-TRISAbits.TRISA2 = 0; LATAbits.LATA2 = 0;
-TRISAbits.TRISA1 = 0; LATAbits.LATA1 = 0;
-
-
-TRISBbits.TRISB0 = 1;
-TRISBbits.TRISB1 = 1;
-TRISCbits.TRISC1 = 1;
-INTCON2bits.RBPU = 1;
-
-
-RCONbits.IPEN = 1;
-INTCONbits.GIEH = 1;
-INTCONbits.GIEL = 1;
+HLVDIF = 0;
+HLVDIP = 1;
+HLVDIE = 1;
 }
 
 void tmr0_start(void){
-T0CONbits.TMR0ON=0;
-T0CONbits.T08BIT=0;
-T0CONbits.T0CS =0;
-T0CONbits.PSA =0;
-T0CONbits.T0PS2 =1;
-T0CONbits.T0PS1 =1;
-T0CONbits.T0PS0 =1;
 
-INTCON2bits.TMR0IP=1;
-INTCONbits.TMR0IF =0;
-INTCONbits.TMR0IE =1;
+T0CON = 0b00000011;
 
-TMR0H=0xF0; TMR0L=0xBE;
-T0CONbits.TMR0ON=1;
+# 217
+if (vdd_low){
+TMR0H = 0xDC;
+TMR0L = 0x24;
+} else {
+TMR0H = 0x70;
+TMR0L = 0x91;
+}
+
+TMR0IP = 0;
+TMR0IF = 0;
+TMR0IE = 1;
+TMR0ON = 1;
 }
 
 
@@ -5795,9 +5857,9 @@ LATD = (LATD & 0xF0) | v;
 
 
 void rgb_set(uint8_t r, uint8_t g, uint8_t b){
-LATEbits.LATE2 = r ? 1 : 0;
-LATEbits.LATE1 = g ? 1 : 0;
-LATEbits.LATE0 = b ? 1 : 0;
+LATE1 = r ? 1 : 0;
+LATE0 = g ? 1 : 0;
+LATE2 = b ? 1 : 0;
 }
 
 void set_rgb_by_decena(uint8_t d){
@@ -5814,8 +5876,8 @@ default: rgb_set(1u,1u,1u); break;
 void beep_ms(uint16_t ms){
 uint32_t n = ((uint32_t)ms*1000u)/(2u*250u);
 while(n--){
-LATAbits.LATA2=1; _delay((unsigned long)((250u)*(8000000UL/4000000.0)));
-LATAbits.LATA2=0; _delay((unsigned long)((250u)*(8000000UL/4000000.0)));
+LATA2=1; _delay((unsigned long)((250u)*(4700000UL/4000000.0)));
+LATA2=0; _delay((unsigned long)((250u)*(4700000UL/4000000.0)));
 }
 }
 
@@ -5823,6 +5885,7 @@ LATAbits.LATA2=0; _delay((unsigned long)((250u)*(8000000UL/4000000.0)));
 void advance_one_press(void){
 if (finished){
 reset_to_zero(1);
+beep_ms(1000);
 finished = 0;
 return;
 }
