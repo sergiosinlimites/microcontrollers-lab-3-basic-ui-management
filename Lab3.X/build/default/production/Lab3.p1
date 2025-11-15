@@ -5,12 +5,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _INT0IF `Vb ~T0 @X0 0 e@32657 ]
 "61 Lab3.c
 [v _rgb_set `(v ~T0 @X0 0 ef3`uc`uc`uc ]
-"9778 C:\Program Files\Microchip\xc8\v2.50\pic\include\proc\pic18f4550.h
-[v _HLVDIF `Vb ~T0 @X0 0 e@32010 ]
-"11113
-[v _VDIRMAG `Vb ~T0 @X0 0 e@32407 ]
 [t T42 __interrupt low_priority  ]
-"10819
+"10819 C:\Program Files\Microchip\xc8\v2.50\pic\include\proc\pic18f4550.h
 [v _TMR0IF `Vb ~T0 @X0 0 e@32658 ]
 "8153
 [v _TMR0H `Vuc ~T0 @X0 0 e@4055 ]
@@ -18,6 +14,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _TMR0L `Vuc ~T0 @X0 0 e@4054 ]
 "9934
 [v _LATA1 `Vb ~T0 @X0 0 e@31817 ]
+"9778
+[v _HLVDIF `Vb ~T0 @X0 0 e@32010 ]
 [p mainexit ]
 "6581
 [v _ADCON1 `Vuc ~T0 @X0 0 e@4033 ]
@@ -57,10 +55,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [t T12 __deprecated__ ]
 "10363 C:\Program Files\Microchip\xc8\v2.50\pic\include\proc\pic18f4550.h
 [v _RB0 `Vb ~T12 @X0 0 e@31752 ]
-"58 Lab3.c
-[v _hlvd_init_4v `(v ~T0 @X0 0 ef ]
-"59
+"59 Lab3.c
 [v _tmr0_start `(v ~T0 @X0 0 ef ]
+"58
+[v _hlvd_init_4v `(v ~T0 @X0 0 ef ]
 "4001 C:\Program Files\Microchip\xc8\v2.50\pic\include\proc\pic18f4550.h
 [v _TRISD `Vuc ~T0 @X0 0 e@3989 ]
 "3263
@@ -96,10 +94,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S328 . . . . . ]
 "7757
 [v _HLVDCONbits `VS328 ~T0 @X0 0 e@4050 ]
-"9772
-[v _HLVDEN `Vb ~T0 @X0 0 e@32404 ]
-"9904
-[v _IRVST `Vb ~T0 @X0 0 e@32405 ]
 "9784
 [v _HLVDIP `Vb ~T0 @X0 0 e@32018 ]
 "9775
@@ -3670,11 +3664,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 "10
 [p x FOSC=HS ]
 "52
-[v _vdd_low `Vuc ~T0 @X0 1 e ]
+[v _vdd_low `uc ~T0 @X0 1 e ]
 [i _vdd_low
 -> -> 0 `i `uc
 ]
-[; ;Lab3.c: 52: volatile uint8_t vdd_low = 0;
+[; ;Lab3.c: 52: unsigned char vdd_low = 0;
 "53
 [v _unidades `Vuc ~T0 @X0 1 e ]
 [i _unidades
@@ -3734,653 +3728,598 @@ Version 3.2 HI-TECH Software Intermediate Code
 }
 [e :U 363 ]
 [; ;Lab3.c: 73: }
-[; ;Lab3.c: 74: if(HLVDIF){
+[; ;Lab3.c: 74: }
 "74
-[e $ ! _HLVDIF 364  ]
-{
-[; ;Lab3.c: 75: HLVDIF = 0;
-"75
-[e = _HLVDIF -> -> 0 `i `b ]
-[; ;Lab3.c: 76: if(VDIRMAG == 0){
-"76
-[e $ ! == -> _VDIRMAG `i -> 0 `i 365  ]
-{
-[; ;Lab3.c: 77: vdd_low = 1;
-"77
-[e = _vdd_low -> -> 1 `i `uc ]
-[; ;Lab3.c: 78: VDIRMAG = 1;
-"78
-[e = _VDIRMAG -> -> 1 `i `b ]
-"79
-}
-[; ;Lab3.c: 79: } else {
-[e $U 366  ]
-[e :U 365 ]
-{
-[; ;Lab3.c: 80: vdd_low = 0;
-"80
-[e = _vdd_low -> -> 0 `i `uc ]
-[; ;Lab3.c: 81: VDIRMAG = 0;
-"81
-[e = _VDIRMAG -> -> 0 `i `b ]
-"82
-}
-[e :U 366 ]
-"83
-}
-[e :U 364 ]
-[; ;Lab3.c: 82: }
-[; ;Lab3.c: 83: }
-[; ;Lab3.c: 84: }
-"84
 [e :UE 362 ]
 }
 [v $root$_low_isr `(v ~T0 @X0 0 e ]
-"86
+"76
 [v _low_isr `(v ~T42 @X0 1 ef ]
 {
-[; ;Lab3.c: 86: void __interrupt(low_priority) low_isr(void){
+[; ;Lab3.c: 76: void __interrupt(low_priority) low_isr(void){
 [e :U _low_isr ]
 [f ]
-[; ;Lab3.c: 87: if (TMR0IF){
-"87
-[e $ ! _TMR0IF 368  ]
+[; ;Lab3.c: 77: if (TMR0IF){
+"77
+[e $ ! _TMR0IF 365  ]
 {
-[; ;Lab3.c: 88: TMR0IF = 0;
-"88
-[e = _TMR0IF -> -> 0 `i `b ]
-[; ;Lab3.c: 90: if (vdd_low){
-"90
-[e $ ! != -> _vdd_low `i -> -> -> 0 `i `Vuc `i 369  ]
+[; ;Lab3.c: 78: if (vdd_low){
+"78
+[e $ ! != -> _vdd_low `i -> -> -> 0 `i `uc `i 366  ]
 {
-[; ;Lab3.c: 91: TMR0H = 0xDC;
-"91
+[; ;Lab3.c: 79: TMR0H = 0xDC;
+"79
 [e = _TMR0H -> -> 220 `i `uc ]
-[; ;Lab3.c: 92: TMR0L = 0x24;
-"92
+[; ;Lab3.c: 80: TMR0L = 0x24;
+"80
 [e = _TMR0L -> -> 36 `i `uc ]
-"93
+"81
 }
-[; ;Lab3.c: 93: } else {
-[e $U 370  ]
-[e :U 369 ]
+[; ;Lab3.c: 81: } else {
+[e $U 367  ]
+[e :U 366 ]
 {
-[; ;Lab3.c: 94: TMR0H = 0x70;
-"94
+[; ;Lab3.c: 82: TMR0H = 0x70;
+"82
 [e = _TMR0H -> -> 112 `i `uc ]
-[; ;Lab3.c: 95: TMR0L = 0x91;
-"95
+[; ;Lab3.c: 83: TMR0L = 0x91;
+"83
 [e = _TMR0L -> -> 145 `i `uc ]
-"96
+"84
 }
-[e :U 370 ]
-[; ;Lab3.c: 96: }
-[; ;Lab3.c: 98: LATA1 ^= 1;
-"98
+[e :U 367 ]
+[; ;Lab3.c: 84: }
+[; ;Lab3.c: 85: TMR0IF = 0;
+"85
+[e = _TMR0IF -> -> 0 `i `b ]
+[; ;Lab3.c: 86: LATA1 ^= 1;
+"86
 [e =^ _LATA1 -> -> 1 `i `b ]
-"99
+[; ;Lab3.c: 87: vdd_low = 0;
+"87
+[e = _vdd_low -> -> 0 `i `uc ]
+"88
+}
+[e :U 365 ]
+[; ;Lab3.c: 88: }
+[; ;Lab3.c: 89: if(HLVDIF){
+"89
+[e $ ! _HLVDIF 368  ]
+{
+[; ;Lab3.c: 90: vdd_low = 1;
+"90
+[e = _vdd_low -> -> 1 `i `uc ]
+[; ;Lab3.c: 91: HLVDIF = 0;
+"91
+[e = _HLVDIF -> -> 0 `i `b ]
+"92
 }
 [e :U 368 ]
-[; ;Lab3.c: 99: }
-[; ;Lab3.c: 101: }
-"101
-[e :UE 367 ]
+[; ;Lab3.c: 92: }
+[; ;Lab3.c: 94: }
+"94
+[e :UE 364 ]
 }
 [v $root$_main `(v ~T0 @X0 0 e ]
-"104
+"97
 [v _main `(v ~T0 @X0 1 ef ]
 {
-[; ;Lab3.c: 104: void main(void){
+[; ;Lab3.c: 97: void main(void){
 [e :U _main ]
 [f ]
-[; ;Lab3.c: 106: ADCON1 = 0x0F;
-"106
+[; ;Lab3.c: 99: ADCON1 = 0x0F;
+"99
 [e = _ADCON1 -> -> 15 `i `uc ]
-[; ;Lab3.c: 107: TRISE = 0b1000;
-"107
+[; ;Lab3.c: 100: TRISE = 0b1000;
+"100
 [e = _TRISE -> -> 8 `i `uc ]
-[; ;Lab3.c: 108: LATE = 0b1000;
-"108
+[; ;Lab3.c: 101: LATE = 0b1000;
+"101
 [e = _LATE -> -> 8 `i `uc ]
-[; ;Lab3.c: 110: TRISA2 = 0; LATA2 = 0;
-"110
+[; ;Lab3.c: 103: TRISA2 = 0; LATA2 = 0;
+"103
 [e = _TRISA2 -> -> 0 `i `b ]
 [e = _LATA2 -> -> 0 `i `b ]
-[; ;Lab3.c: 111: TRISA1 = 0; LATA1 = 0;
-"111
+[; ;Lab3.c: 104: TRISA1 = 0; LATA1 = 0;
+"104
 [e = _TRISA1 -> -> 0 `i `b ]
 [e = _LATA1 -> -> 0 `i `b ]
-[; ;Lab3.c: 113: TRISB0 = 1;
-"113
+[; ;Lab3.c: 106: TRISB0 = 1;
+"106
 [e = _TRISB0 -> -> 1 `i `b ]
-[; ;Lab3.c: 114: TRISB1 = 1;
-"114
+[; ;Lab3.c: 107: TRISB1 = 1;
+"107
 [e = _TRISB1 -> -> 1 `i `b ]
-[; ;Lab3.c: 115: TRISC1 = 1;
-"115
+[; ;Lab3.c: 108: TRISC1 = 1;
+"108
 [e = _TRISC1 -> -> 1 `i `b ]
-[; ;Lab3.c: 116: RBPU = 1;
-"116
+[; ;Lab3.c: 109: RBPU = 1;
+"109
 [e = _RBPU -> -> 1 `i `b ]
-[; ;Lab3.c: 119: IPEN = 1;
-"119
+[; ;Lab3.c: 112: IPEN = 1;
+"112
 [e = _IPEN -> -> 1 `i `b ]
-[; ;Lab3.c: 120: GIEH = 1;
-"120
+[; ;Lab3.c: 113: GIEH = 1;
+"113
 [e = _GIEH -> -> 1 `i `b ]
-[; ;Lab3.c: 121: GIEL = 1;
-"121
+[; ;Lab3.c: 114: GIEL = 1;
+"114
 [e = _GIEL -> -> 1 `i `b ]
-[; ;Lab3.c: 122: INTEDG0 = 1;
-"122
+[; ;Lab3.c: 115: INTEDG0 = 1;
+"115
 [e = _INTEDG0 -> -> 1 `i `b ]
-[; ;Lab3.c: 123: INT0IF = 0;
-"123
+[; ;Lab3.c: 116: INT0IF = 0;
+"116
 [e = _INT0IF -> -> 0 `i `b ]
-[; ;Lab3.c: 124: INT0IE = 1;
-"124
+[; ;Lab3.c: 117: INT0IE = 1;
+"117
 [e = _INT0IE -> -> 1 `i `b ]
-[; ;Lab3.c: 127: _delay((unsigned long)((2)*(4700000UL/4000.0)));
-"127
+[; ;Lab3.c: 120: _delay((unsigned long)((2)*(4700000UL/4000.0)));
+"120
 [e ( __delay (1 -> * -> -> 2 `i `d / -> -> 4700000 `ul `d .4000.0 `ul ]
-[; ;Lab3.c: 128: if (RB0) {
-"128
-[e $ ! _RB0 372  ]
+[; ;Lab3.c: 121: if (RB0) {
+"121
+[e $ ! _RB0 370  ]
 {
-[; ;Lab3.c: 129: emg_latched = 1;
-"129
+[; ;Lab3.c: 122: emg_latched = 1;
+"122
 [e = _emg_latched -> -> 1 `i `uc ]
-[; ;Lab3.c: 130: rgb_set(1u,0u,0u);
-"130
+[; ;Lab3.c: 123: rgb_set(1u,0u,0u);
+"123
 [e ( _rgb_set (3 , , -> -> 1 `ui `uc -> -> 0 `ui `uc -> -> 0 `ui `uc ]
-"132
+"125
 }
-[e :U 372 ]
-[; ;Lab3.c: 132: }
-[; ;Lab3.c: 135: hlvd_init_4v();
-"135
-[e ( _hlvd_init_4v ..  ]
-[; ;Lab3.c: 138: tmr0_start();
-"138
+[e :U 370 ]
+[; ;Lab3.c: 125: }
+[; ;Lab3.c: 128: tmr0_start();
+"128
 [e ( _tmr0_start ..  ]
-[; ;Lab3.c: 141: if (!emg_latched) {
-"141
-[e $ ! ! != -> _emg_latched `i -> -> -> 0 `i `Vuc `i 373  ]
+[; ;Lab3.c: 131: hlvd_init_4v();
+"131
+[e ( _hlvd_init_4v ..  ]
+[; ;Lab3.c: 134: if (!emg_latched) {
+"134
+[e $ ! ! != -> _emg_latched `i -> -> -> 0 `i `Vuc `i 371  ]
 {
-[; ;Lab3.c: 142: TRISD = 0b11110000;
-"142
+[; ;Lab3.c: 135: TRISD = 0b11110000;
+"135
 [e = _TRISD -> -> 240 `i `uc ]
-[; ;Lab3.c: 143: LATD = (LATD & 0xF0);
-"143
+[; ;Lab3.c: 136: LATD = (LATD & 0xF0);
+"136
 [e = _LATD -> & -> _LATD `i -> 240 `i `uc ]
-[; ;Lab3.c: 144: sevenseg_bcd(0);
-"144
+[; ;Lab3.c: 137: sevenseg_bcd(0);
+"137
 [e ( _sevenseg_bcd (1 -> -> 0 `i `uc ]
-[; ;Lab3.c: 145: rgb_set(0u,0u,0u);
-"145
+[; ;Lab3.c: 138: rgb_set(0u,0u,0u);
+"138
 [e ( _rgb_set (3 , , -> -> 0 `ui `uc -> -> 0 `ui `uc -> -> 0 `ui `uc ]
-[; ;Lab3.c: 146: started = 0;
-"146
+[; ;Lab3.c: 139: started = 0;
+"139
 [e = _started -> -> 0 `i `uc ]
-[; ;Lab3.c: 147: finished = 0;
-"147
+[; ;Lab3.c: 140: finished = 0;
+"140
 [e = _finished -> -> 0 `i `uc ]
-"148
+"141
 }
-[e :U 373 ]
-"151
+[e :U 371 ]
+"144
 [v _last_rc1 `uc ~T0 @X0 1 a ]
-[; ;Lab3.c: 148: }
-[; ;Lab3.c: 151: uint8_t last_rc1 = 1;
+[; ;Lab3.c: 141: }
+[; ;Lab3.c: 144: uint8_t last_rc1 = 1;
 [e = _last_rc1 -> -> 1 `i `uc ]
-"152
+"145
 [v _last_rb1 `uc ~T0 @X0 1 a ]
-[; ;Lab3.c: 152: uint8_t last_rb1 = 0;
+[; ;Lab3.c: 145: uint8_t last_rb1 = 0;
 [e = _last_rb1 -> -> 0 `i `uc ]
-[; ;Lab3.c: 154: while (1) {
-"154
-[e :U 375 ]
+[; ;Lab3.c: 147: while (1) {
+"147
+[e :U 373 ]
 {
-[; ;Lab3.c: 156: if (emg_latched) {
-"156
-[e $ ! != -> _emg_latched `i -> -> -> 0 `i `Vuc `i 377  ]
+[; ;Lab3.c: 149: if (emg_latched) {
+"149
+[e $ ! != -> _emg_latched `i -> -> -> 0 `i `Vuc `i 375  ]
 {
-[; ;Lab3.c: 157: rgb_set(1u,0u,0u);
-"157
+[; ;Lab3.c: 150: rgb_set(1u,0u,0u);
+"150
 [e ( _rgb_set (3 , , -> -> 1 `ui `uc -> -> 0 `ui `uc -> -> 0 `ui `uc ]
-[; ;Lab3.c: 158: _delay((unsigned long)((50)*(4700000UL/4000.0)));
-"158
+[; ;Lab3.c: 151: _delay((unsigned long)((50)*(4700000UL/4000.0)));
+"151
 [e ( __delay (1 -> * -> -> 50 `i `d / -> -> 4700000 `ul `d .4000.0 `ul ]
-[; ;Lab3.c: 159: continue;
-"159
-[e $U 374  ]
-"160
+[; ;Lab3.c: 152: continue;
+"152
+[e $U 372  ]
+"153
 }
-[e :U 377 ]
-"163
+[e :U 375 ]
+"156
 [v _rc1 `uc ~T0 @X0 1 a ]
-[; ;Lab3.c: 160: }
-[; ;Lab3.c: 163: uint8_t rc1 = RC1;
+[; ;Lab3.c: 153: }
+[; ;Lab3.c: 156: uint8_t rc1 = RC1;
 [e = _rc1 -> -> _RC1 `i `uc ]
-[; ;Lab3.c: 164: if (last_rc1 == 1 && rc1 == 0) {
-"164
-[e $ ! && == -> _last_rc1 `i -> 1 `i == -> _rc1 `i -> 0 `i 378  ]
+[; ;Lab3.c: 157: if (last_rc1 == 1 && rc1 == 0) {
+"157
+[e $ ! && == -> _last_rc1 `i -> 1 `i == -> _rc1 `i -> 0 `i 376  ]
 {
-[; ;Lab3.c: 165: if (!started && !finished) { started = 1; set_rgb_by_decena(0); }
-"165
-[e $ ! && ! != -> _started `i -> -> -> 0 `i `Vuc `i ! != -> _finished `i -> -> -> 0 `i `Vuc `i 379  ]
+[; ;Lab3.c: 158: if (!started && !finished) { started = 1; set_rgb_by_decena(0); }
+"158
+[e $ ! && ! != -> _started `i -> -> -> 0 `i `Vuc `i ! != -> _finished `i -> -> -> 0 `i `Vuc `i 377  ]
 {
 [e = _started -> -> 1 `i `uc ]
 [e ( _set_rgb_by_decena (1 -> -> 0 `i `uc ]
 }
-[e :U 379 ]
-[; ;Lab3.c: 166: advance_one_press();
-"166
+[e :U 377 ]
+[; ;Lab3.c: 159: advance_one_press();
+"159
 [e ( _advance_one_press ..  ]
-[; ;Lab3.c: 167: _delay((unsigned long)((50)*(4700000UL/4000.0)));
-"167
+[; ;Lab3.c: 160: _delay((unsigned long)((50)*(4700000UL/4000.0)));
+"160
 [e ( __delay (1 -> * -> -> 50 `i `d / -> -> 4700000 `ul `d .4000.0 `ul ]
+"161
+}
+[e :U 376 ]
+[; ;Lab3.c: 161: }
+[; ;Lab3.c: 162: last_rc1 = rc1;
+"162
+[e = _last_rc1 _rc1 ]
+"165
+[v _rb1 `uc ~T0 @X0 1 a ]
+[; ;Lab3.c: 165: uint8_t rb1 = RB1;
+[e = _rb1 -> -> _RB1 `i `uc ]
+[; ;Lab3.c: 166: if (last_rb1 == 0 && rb1 == 1) {
+"166
+[e $ ! && == -> _last_rb1 `i -> 0 `i == -> _rb1 `i -> 1 `i 378  ]
+{
+[; ;Lab3.c: 167: reset_to_zero(started);
+"167
+[e ( _reset_to_zero (1 _started ]
+[; ;Lab3.c: 168: _delay((unsigned long)((50)*(4700000UL/4000.0)));
 "168
+[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 4700000 `ul `d .4000.0 `ul ]
+"169
 }
 [e :U 378 ]
-[; ;Lab3.c: 168: }
-[; ;Lab3.c: 169: last_rc1 = rc1;
-"169
-[e = _last_rc1 _rc1 ]
-"172
-[v _rb1 `uc ~T0 @X0 1 a ]
-[; ;Lab3.c: 172: uint8_t rb1 = RB1;
-[e = _rb1 -> -> _RB1 `i `uc ]
-[; ;Lab3.c: 173: if (last_rb1 == 0 && rb1 == 1) {
-"173
-[e $ ! && == -> _last_rb1 `i -> 0 `i == -> _rb1 `i -> 1 `i 380  ]
-{
-[; ;Lab3.c: 174: reset_to_zero(started);
-"174
-[e ( _reset_to_zero (1 _started ]
-[; ;Lab3.c: 175: _delay((unsigned long)((50)*(4700000UL/4000.0)));
-"175
-[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 4700000 `ul `d .4000.0 `ul ]
-"176
-}
-[e :U 380 ]
-[; ;Lab3.c: 176: }
-[; ;Lab3.c: 177: last_rb1 = rb1;
-"177
+[; ;Lab3.c: 169: }
+[; ;Lab3.c: 170: last_rb1 = rb1;
+"170
 [e = _last_rb1 _rb1 ]
-"178
+"171
 }
+[e :U 372 ]
+"147
+[e $U 373  ]
 [e :U 374 ]
-"154
-[e $U 375  ]
-[e :U 376 ]
-[; ;Lab3.c: 178: }
-[; ;Lab3.c: 179: }
-"179
-[e :UE 371 ]
+[; ;Lab3.c: 171: }
+[; ;Lab3.c: 172: }
+"172
+[e :UE 369 ]
 }
-"182
+"175
 [v _init_hw `(v ~T0 @X0 1 ef ]
 {
-[; ;Lab3.c: 182: void init_hw(void){
+[; ;Lab3.c: 175: void init_hw(void){
 [e :U _init_hw ]
 [f ]
-[; ;Lab3.c: 184: }
-"184
-[e :UE 381 ]
+[; ;Lab3.c: 177: }
+"177
+[e :UE 379 ]
 }
-"186
+"179
 [v _hlvd_init_4v `(v ~T0 @X0 1 ef ]
 {
-[; ;Lab3.c: 186: void hlvd_init_4v(void){
+[; ;Lab3.c: 179: void hlvd_init_4v(void){
 [e :U _hlvd_init_4v ]
 [f ]
-[; ;Lab3.c: 189: HLVDCON = 0b00000000;
-"189
+[; ;Lab3.c: 182: HLVDCON = 0b00000000;
+"182
 [e = _HLVDCON -> -> 0 `i `uc ]
-[; ;Lab3.c: 191: HLVDCONbits.HLVDL3 = 1;
+[; ;Lab3.c: 189: HLVDCONbits.HLVDL = 0b1100;
+"189
+[e = . . _HLVDCONbits 0 0 -> -> 12 `i `uc ]
+[; ;Lab3.c: 190: HLVDCONbits.VDIRMAG = 0;
+"190
+[e = . . _HLVDCONbits 0 4 -> -> 0 `i `uc ]
+[; ;Lab3.c: 191: HLVDCONbits.HLVDEN = 1;
 "191
-[e = . . _HLVDCONbits 1 3 -> -> 1 `i `uc ]
-[; ;Lab3.c: 192: HLVDCONbits.HLVDL2 = 0;
+[e = . . _HLVDCONbits 0 1 -> -> 1 `i `uc ]
+[; ;Lab3.c: 192: while (!HLVDCONbits.IRVST);
 "192
-[e = . . _HLVDCONbits 1 2 -> -> 0 `i `uc ]
-[; ;Lab3.c: 193: HLVDCONbits.HLVDL1 = 1;
-"193
-[e = . . _HLVDCONbits 1 1 -> -> 1 `i `uc ]
-[; ;Lab3.c: 194: HLVDCONbits.HLVDL0 = 1;
-"194
-[e = . . _HLVDCONbits 1 0 -> -> 1 `i `uc ]
-[; ;Lab3.c: 197: VDIRMAG = 0;
-"197
-[e = _VDIRMAG -> -> 0 `i `b ]
-[; ;Lab3.c: 198: HLVDEN = 1;
-"198
-[e = _HLVDEN -> -> 1 `i `b ]
-[; ;Lab3.c: 199: while (!IRVST);
-"199
-[e $U 383  ]
-[e :U 384 ]
+[e $U 381  ]
+[e :U 382 ]
+[e :U 381 ]
+[e $ ! != -> . . _HLVDCONbits 0 2 `i -> -> -> 0 `i `Vuc `i 382  ]
 [e :U 383 ]
-[e $ ! _IRVST 384  ]
-[e :U 385 ]
-[; ;Lab3.c: 201: HLVDIF = 0;
-"201
+[; ;Lab3.c: 194: HLVDIF = 0;
+"194
 [e = _HLVDIF -> -> 0 `i `b ]
-[; ;Lab3.c: 202: HLVDIP = 1;
-"202
-[e = _HLVDIP -> -> 1 `i `b ]
-[; ;Lab3.c: 203: HLVDIE = 1;
-"203
+[; ;Lab3.c: 195: HLVDIP = 0;
+"195
+[e = _HLVDIP -> -> 0 `i `b ]
+[; ;Lab3.c: 196: HLVDIE = 1;
+"196
 [e = _HLVDIE -> -> 1 `i `b ]
-[; ;Lab3.c: 204: }
-"204
-[e :UE 382 ]
+[; ;Lab3.c: 197: }
+"197
+[e :UE 380 ]
 }
-"206
+"199
 [v _tmr0_start `(v ~T0 @X0 1 ef ]
 {
-[; ;Lab3.c: 206: void tmr0_start(void){
+[; ;Lab3.c: 199: void tmr0_start(void){
 [e :U _tmr0_start ]
 [f ]
-[; ;Lab3.c: 208: T0CON = 0b00000011;
-"208
+[; ;Lab3.c: 201: T0CON = 0b00000011;
+"201
 [e = _T0CON -> -> 3 `i `uc ]
-[; ;Lab3.c: 217: if (vdd_low){
-"217
-[e $ ! != -> _vdd_low `i -> -> -> 0 `i `Vuc `i 387  ]
-{
-[; ;Lab3.c: 218: TMR0H = 0xDC;
+[; ;Lab3.c: 218: TMR0IP = 0;
 "218
-[e = _TMR0H -> -> 220 `i `uc ]
-[; ;Lab3.c: 219: TMR0L = 0x24;
-"219
-[e = _TMR0L -> -> 36 `i `uc ]
-"220
-}
-[; ;Lab3.c: 220: } else {
-[e $U 388  ]
-[e :U 387 ]
-{
-[; ;Lab3.c: 221: TMR0H = 0x70;
-"221
-[e = _TMR0H -> -> 112 `i `uc ]
-[; ;Lab3.c: 222: TMR0L = 0x91;
-"222
-[e = _TMR0L -> -> 145 `i `uc ]
-"223
-}
-[e :U 388 ]
-[; ;Lab3.c: 223: }
-[; ;Lab3.c: 225: TMR0IP = 0;
-"225
 [e = _TMR0IP -> -> 0 `i `b ]
-[; ;Lab3.c: 226: TMR0IF = 0;
-"226
+[; ;Lab3.c: 219: TMR0IF = 0;
+"219
 [e = _TMR0IF -> -> 0 `i `b ]
-[; ;Lab3.c: 227: TMR0IE = 1;
-"227
+[; ;Lab3.c: 220: TMR0IE = 1;
+"220
 [e = _TMR0IE -> -> 1 `i `b ]
-[; ;Lab3.c: 228: TMR0ON = 1;
-"228
+[; ;Lab3.c: 221: TMR0ON = 1;
+"221
 [e = _TMR0ON -> -> 1 `i `b ]
-[; ;Lab3.c: 229: }
-"229
-[e :UE 386 ]
+[; ;Lab3.c: 222: }
+"222
+[e :UE 384 ]
 }
-"232
+"225
 [v _sevenseg_bcd `(v ~T0 @X0 1 ef1`uc ]
 {
-[; ;Lab3.c: 232: void sevenseg_bcd(uint8_t d){
+[; ;Lab3.c: 225: void sevenseg_bcd(uint8_t d){
 [e :U _sevenseg_bcd ]
 [v _d `uc ~T0 @X0 1 r1 ]
 [f ]
-"233
+"226
 [v _v `uc ~T0 @X0 1 a ]
-[; ;Lab3.c: 233: uint8_t v = (d & 0x0F);
+[; ;Lab3.c: 226: uint8_t v = (d & 0x0F);
 [e = _v -> & -> _d `i -> 15 `i `uc ]
-[; ;Lab3.c: 234: LATD = (LATD & 0xF0) | v;
-"234
+[; ;Lab3.c: 227: LATD = (LATD & 0xF0) | v;
+"227
 [e = _LATD -> | & -> _LATD `i -> 240 `i -> _v `i `uc ]
-[; ;Lab3.c: 235: }
-"235
-[e :UE 389 ]
+[; ;Lab3.c: 228: }
+"228
+[e :UE 385 ]
 }
-"238
+"231
 [v _rgb_set `(v ~T0 @X0 1 ef3`uc`uc`uc ]
 {
-[; ;Lab3.c: 238: void rgb_set(uint8_t r, uint8_t g, uint8_t b){
+[; ;Lab3.c: 231: void rgb_set(uint8_t r, uint8_t g, uint8_t b){
 [e :U _rgb_set ]
 [v _r `uc ~T0 @X0 1 r1 ]
 [v _g `uc ~T0 @X0 1 r2 ]
 [v _b `uc ~T0 @X0 1 r3 ]
 [f ]
-[; ;Lab3.c: 239: LATE1 = r ? 1 : 0;
-"239
+[; ;Lab3.c: 232: LATE1 = r ? 1 : 0;
+"232
 [e = _LATE1 -> ? != -> _r `i -> -> -> 0 `i `uc `i : -> 1 `i -> 0 `i `b ]
-[; ;Lab3.c: 240: LATE0 = g ? 1 : 0;
-"240
+[; ;Lab3.c: 233: LATE0 = g ? 1 : 0;
+"233
 [e = _LATE0 -> ? != -> _g `i -> -> -> 0 `i `uc `i : -> 1 `i -> 0 `i `b ]
-[; ;Lab3.c: 241: LATE2 = b ? 1 : 0;
-"241
+[; ;Lab3.c: 234: LATE2 = b ? 1 : 0;
+"234
 [e = _LATE2 -> ? != -> _b `i -> -> -> 0 `i `uc `i : -> 1 `i -> 0 `i `b ]
-[; ;Lab3.c: 242: }
-"242
-[e :UE 390 ]
+[; ;Lab3.c: 235: }
+"235
+[e :UE 386 ]
 }
-"244
+"237
 [v _set_rgb_by_decena `(v ~T0 @X0 1 ef1`uc ]
 {
-[; ;Lab3.c: 244: void set_rgb_by_decena(uint8_t d){
+[; ;Lab3.c: 237: void set_rgb_by_decena(uint8_t d){
 [e :U _set_rgb_by_decena ]
 [v _d `uc ~T0 @X0 1 r1 ]
 [f ]
-[; ;Lab3.c: 245: switch (d % 6){
-"245
-[e $U 393  ]
+[; ;Lab3.c: 238: switch (d % 6){
+"238
+[e $U 389  ]
 {
-[; ;Lab3.c: 246: case 0: rgb_set(1u,0u,1u); break;
-"246
-[e :U 394 ]
+[; ;Lab3.c: 239: case 0: rgb_set(1u,0u,1u); break;
+"239
+[e :U 390 ]
 [e ( _rgb_set (3 , , -> -> 1 `ui `uc -> -> 0 `ui `uc -> -> 1 `ui `uc ]
-[e $U 392  ]
-[; ;Lab3.c: 247: case 1: rgb_set(0u,0u,1u); break;
-"247
-[e :U 395 ]
+[e $U 388  ]
+[; ;Lab3.c: 240: case 1: rgb_set(0u,0u,1u); break;
+"240
+[e :U 391 ]
 [e ( _rgb_set (3 , , -> -> 0 `ui `uc -> -> 0 `ui `uc -> -> 1 `ui `uc ]
-[e $U 392  ]
-[; ;Lab3.c: 248: case 2: rgb_set(0u,1u,1u); break;
-"248
-[e :U 396 ]
-[e ( _rgb_set (3 , , -> -> 0 `ui `uc -> -> 1 `ui `uc -> -> 1 `ui `uc ]
-[e $U 392  ]
-[; ;Lab3.c: 249: case 3: rgb_set(0u,1u,0u); break;
-"249
-[e :U 397 ]
-[e ( _rgb_set (3 , , -> -> 0 `ui `uc -> -> 1 `ui `uc -> -> 0 `ui `uc ]
-[e $U 392  ]
-[; ;Lab3.c: 250: case 4: rgb_set(1u,1u,0u); break;
-"250
-[e :U 398 ]
-[e ( _rgb_set (3 , , -> -> 1 `ui `uc -> -> 1 `ui `uc -> -> 0 `ui `uc ]
-[e $U 392  ]
-[; ;Lab3.c: 251: default: rgb_set(1u,1u,1u); break;
-"251
-[e :U 399 ]
-[e ( _rgb_set (3 , , -> -> 1 `ui `uc -> -> 1 `ui `uc -> -> 1 `ui `uc ]
-[e $U 392  ]
-"252
-}
-[; ;Lab3.c: 252: }
-[e $U 392  ]
-"245
-[e :U 393 ]
-[e [\ % -> _d `i -> 6 `i , $ -> 0 `i 394
- , $ -> 1 `i 395
- , $ -> 2 `i 396
- , $ -> 3 `i 397
- , $ -> 4 `i 398
- 399 ]
-"252
+[e $U 388  ]
+[; ;Lab3.c: 241: case 2: rgb_set(0u,1u,1u); break;
+"241
 [e :U 392 ]
-[; ;Lab3.c: 253: }
-"253
-[e :UE 391 ]
+[e ( _rgb_set (3 , , -> -> 0 `ui `uc -> -> 1 `ui `uc -> -> 1 `ui `uc ]
+[e $U 388  ]
+[; ;Lab3.c: 242: case 3: rgb_set(0u,1u,0u); break;
+"242
+[e :U 393 ]
+[e ( _rgb_set (3 , , -> -> 0 `ui `uc -> -> 1 `ui `uc -> -> 0 `ui `uc ]
+[e $U 388  ]
+[; ;Lab3.c: 243: case 4: rgb_set(1u,1u,0u); break;
+"243
+[e :U 394 ]
+[e ( _rgb_set (3 , , -> -> 1 `ui `uc -> -> 1 `ui `uc -> -> 0 `ui `uc ]
+[e $U 388  ]
+[; ;Lab3.c: 244: default: rgb_set(1u,1u,1u); break;
+"244
+[e :U 395 ]
+[e ( _rgb_set (3 , , -> -> 1 `ui `uc -> -> 1 `ui `uc -> -> 1 `ui `uc ]
+[e $U 388  ]
+"245
 }
-"255
+[; ;Lab3.c: 245: }
+[e $U 388  ]
+"238
+[e :U 389 ]
+[e [\ % -> _d `i -> 6 `i , $ -> 0 `i 390
+ , $ -> 1 `i 391
+ , $ -> 2 `i 392
+ , $ -> 3 `i 393
+ , $ -> 4 `i 394
+ 395 ]
+"245
+[e :U 388 ]
+[; ;Lab3.c: 246: }
+"246
+[e :UE 387 ]
+}
+"248
 [v _beep_ms `(v ~T0 @X0 1 ef1`ui ]
 {
-[; ;Lab3.c: 255: void beep_ms(uint16_t ms){
+[; ;Lab3.c: 248: void beep_ms(uint16_t ms){
 [e :U _beep_ms ]
 [v _ms `ui ~T0 @X0 1 r1 ]
 [f ]
-"256
+"249
 [v _n `ul ~T0 @X0 1 a ]
-[; ;Lab3.c: 256: uint32_t n = ((uint32_t)ms*1000u)/(2u*250u);
+[; ;Lab3.c: 249: uint32_t n = ((uint32_t)ms*1000u)/(2u*250u);
 [e = _n / * -> _ms `ul -> -> 1000 `ui `ul -> * -> 2 `ui -> 250 `ui `ul ]
-[; ;Lab3.c: 257: while(n--){
-"257
-[e $U 401  ]
-[e :U 402 ]
+[; ;Lab3.c: 250: while(n--){
+"250
+[e $U 397  ]
+[e :U 398 ]
 {
-[; ;Lab3.c: 258: LATA2=1; _delay((unsigned long)((250u)*(4700000UL/4000000.0)));
-"258
+[; ;Lab3.c: 251: LATA2=1; _delay((unsigned long)((250u)*(4700000UL/4000000.0)));
+"251
 [e = _LATA2 -> -> 1 `i `b ]
 [e ( __delay (1 -> * -> -> 250 `ui `d / -> -> 4700000 `ul `d .4000000.0 `ul ]
-[; ;Lab3.c: 259: LATA2=0; _delay((unsigned long)((250u)*(4700000UL/4000000.0)));
-"259
+[; ;Lab3.c: 252: LATA2=0; _delay((unsigned long)((250u)*(4700000UL/4000000.0)));
+"252
 [e = _LATA2 -> -> 0 `i `b ]
 [e ( __delay (1 -> * -> -> 250 `ui `d / -> -> 4700000 `ul `d .4000000.0 `ul ]
-"260
+"253
 }
-[e :U 401 ]
+[e :U 397 ]
+"250
+[e $ != -- _n -> -> -> 1 `i `l `ul -> -> 0 `i `ul 398  ]
+[e :U 399 ]
+[; ;Lab3.c: 253: }
+[; ;Lab3.c: 254: }
+"254
+[e :UE 396 ]
+}
 "257
-[e $ != -- _n -> -> -> 1 `i `l `ul -> -> 0 `i `ul 402  ]
-[e :U 403 ]
-[; ;Lab3.c: 260: }
-[; ;Lab3.c: 261: }
-"261
-[e :UE 400 ]
-}
-"264
 [v _advance_one_press `(v ~T0 @X0 1 ef ]
 {
-[; ;Lab3.c: 264: void advance_one_press(void){
+[; ;Lab3.c: 257: void advance_one_press(void){
 [e :U _advance_one_press ]
 [f ]
-[; ;Lab3.c: 265: if (finished){
-"265
-[e $ ! != -> _finished `i -> -> -> 0 `i `Vuc `i 405  ]
+[; ;Lab3.c: 258: if (finished){
+"258
+[e $ ! != -> _finished `i -> -> -> 0 `i `Vuc `i 401  ]
 {
-[; ;Lab3.c: 266: reset_to_zero(1);
-"266
+[; ;Lab3.c: 259: reset_to_zero(1);
+"259
 [e ( _reset_to_zero (1 -> -> 1 `i `uc ]
-[; ;Lab3.c: 267: beep_ms(1000);
-"267
+[; ;Lab3.c: 260: beep_ms(1000);
+"260
 [e ( _beep_ms (1 -> -> 1000 `i `ui ]
-[; ;Lab3.c: 268: finished = 0;
-"268
+[; ;Lab3.c: 261: finished = 0;
+"261
 [e = _finished -> -> 0 `i `uc ]
-[; ;Lab3.c: 269: return;
-"269
-[e $UE 404  ]
-"270
+[; ;Lab3.c: 262: return;
+"262
+[e $UE 400  ]
+"263
 }
-[e :U 405 ]
-[; ;Lab3.c: 270: }
-[; ;Lab3.c: 272: if (unidades < 9){
-"272
-[e $ ! < -> _unidades `i -> 9 `i 406  ]
+[e :U 401 ]
+[; ;Lab3.c: 263: }
+[; ;Lab3.c: 265: if (unidades < 9){
+"265
+[e $ ! < -> _unidades `i -> 9 `i 402  ]
 {
-[; ;Lab3.c: 273: unidades++;
-"273
+[; ;Lab3.c: 266: unidades++;
+"266
 [e ++ _unidades -> -> 1 `i `uc ]
-"274
+"267
 }
-[; ;Lab3.c: 274: } else {
-[e $U 407  ]
-[e :U 406 ]
+[; ;Lab3.c: 267: } else {
+[e $U 403  ]
+[e :U 402 ]
 {
-[; ;Lab3.c: 275: unidades = 0;
-"275
+[; ;Lab3.c: 268: unidades = 0;
+"268
 [e = _unidades -> -> 0 `i `uc ]
-[; ;Lab3.c: 276: if (decenas < 5){
-"276
-[e $ ! < -> _decenas `i -> 5 `i 408  ]
+[; ;Lab3.c: 269: if (decenas < 5){
+"269
+[e $ ! < -> _decenas `i -> 5 `i 404  ]
 {
-[; ;Lab3.c: 277: decenas++;
-"277
+[; ;Lab3.c: 270: decenas++;
+"270
 [e ++ _decenas -> -> 1 `i `uc ]
-[; ;Lab3.c: 278: set_rgb_by_decena(decenas);
-"278
+[; ;Lab3.c: 271: set_rgb_by_decena(decenas);
+"271
 [e ( _set_rgb_by_decena (1 _decenas ]
-[; ;Lab3.c: 279: beep_ms(80);
-"279
+[; ;Lab3.c: 272: beep_ms(80);
+"272
 [e ( _beep_ms (1 -> -> 80 `i `ui ]
-"280
+"273
 }
-[; ;Lab3.c: 280: } else {
-[e $U 409  ]
-[e :U 408 ]
+[; ;Lab3.c: 273: } else {
+[e $U 405  ]
+[e :U 404 ]
 {
-[; ;Lab3.c: 281: decenas = 5; unidades = 9;
-"281
+[; ;Lab3.c: 274: decenas = 5; unidades = 9;
+"274
 [e = _decenas -> -> 5 `i `uc ]
 [e = _unidades -> -> 9 `i `uc ]
-[; ;Lab3.c: 282: finished = 1;
-"282
+[; ;Lab3.c: 275: finished = 1;
+"275
 [e = _finished -> -> 1 `i `uc ]
-"283
+"276
 }
-[e :U 409 ]
-"284
+[e :U 405 ]
+"277
 }
-[e :U 407 ]
-[; ;Lab3.c: 283: }
-[; ;Lab3.c: 284: }
-[; ;Lab3.c: 285: sevenseg_bcd(unidades);
-"285
+[e :U 403 ]
+[; ;Lab3.c: 276: }
+[; ;Lab3.c: 277: }
+[; ;Lab3.c: 278: sevenseg_bcd(unidades);
+"278
 [e ( _sevenseg_bcd (1 _unidades ]
-[; ;Lab3.c: 286: }
-"286
-[e :UE 404 ]
+[; ;Lab3.c: 279: }
+"279
+[e :UE 400 ]
 }
-"288
+"281
 [v _reset_to_zero `(v ~T0 @X0 1 ef1`uc ]
 {
-[; ;Lab3.c: 288: void reset_to_zero(uint8_t keep_started){
+[; ;Lab3.c: 281: void reset_to_zero(uint8_t keep_started){
 [e :U _reset_to_zero ]
 [v _keep_started `uc ~T0 @X0 1 r1 ]
 [f ]
-[; ;Lab3.c: 289: unidades = 0;
-"289
+[; ;Lab3.c: 282: unidades = 0;
+"282
 [e = _unidades -> -> 0 `i `uc ]
-[; ;Lab3.c: 290: decenas = 0;
-"290
+[; ;Lab3.c: 283: decenas = 0;
+"283
 [e = _decenas -> -> 0 `i `uc ]
-[; ;Lab3.c: 291: finished = 0;
-"291
+[; ;Lab3.c: 284: finished = 0;
+"284
 [e = _finished -> -> 0 `i `uc ]
-[; ;Lab3.c: 292: sevenseg_bcd(0);
-"292
+[; ;Lab3.c: 285: sevenseg_bcd(0);
+"285
 [e ( _sevenseg_bcd (1 -> -> 0 `i `uc ]
-[; ;Lab3.c: 293: if (keep_started){ set_rgb_by_decena(0); }
-"293
-[e $ ! != -> _keep_started `i -> -> -> 0 `i `uc `i 411  ]
+[; ;Lab3.c: 286: if (keep_started){ set_rgb_by_decena(0); }
+"286
+[e $ ! != -> _keep_started `i -> -> -> 0 `i `uc `i 407  ]
 {
 [e ( _set_rgb_by_decena (1 -> -> 0 `i `uc ]
 }
-[e $U 412  ]
-"294
-[e :U 411 ]
-[; ;Lab3.c: 294: else { rgb_set(0u,0u,0u); }
+[e $U 408  ]
+"287
+[e :U 407 ]
+[; ;Lab3.c: 287: else { rgb_set(0u,0u,0u); }
 {
 [e ( _rgb_set (3 , , -> -> 0 `ui `uc -> -> 0 `ui `uc -> -> 0 `ui `uc ]
 }
-[e :U 412 ]
-[; ;Lab3.c: 295: started = keep_started;
-"295
+[e :U 408 ]
+[; ;Lab3.c: 288: started = keep_started;
+"288
 [e = _started _keep_started ]
-[; ;Lab3.c: 296: }
-"296
-[e :UE 410 ]
+[; ;Lab3.c: 289: }
+"289
+[e :UE 406 ]
 }

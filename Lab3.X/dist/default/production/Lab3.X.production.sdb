@@ -31,26 +31,26 @@
 [v ___omul __omul `(ul  1 e 4 0 ]
 "68 C:\Users\sergi\OneDrive\Documents\Universidad\Micros\Labs\Laboratorio_3\Lab3.X\Lab3.c
 [v _high_isr high_isr `IIH(v  1 e 1 0 ]
-"86
+"76
 [v _low_isr low_isr `IIL(v  1 e 1 0 ]
-"104
+"97
 [v _main main `(v  1 e 1 0 ]
-"186
+"179
 [v _hlvd_init_4v hlvd_init_4v `(v  1 e 1 0 ]
-"206
+"199
 [v _tmr0_start tmr0_start `(v  1 e 1 0 ]
-"232
+"225
 [v _sevenseg_bcd sevenseg_bcd `(v  1 e 1 0 ]
-"238
+"231
 [v _rgb_set rgb_set `(v  1 e 1 0 ]
 [v i2_rgb_set rgb_set `(v  1 e 1 0 ]
-"244
+"237
 [v _set_rgb_by_decena set_rgb_by_decena `(v  1 e 1 0 ]
-"255
+"248
 [v _beep_ms beep_ms `(v  1 e 1 0 ]
-"264
+"257
 [v _advance_one_press advance_one_press `(v  1 e 1 0 ]
-"288
+"281
 [v _reset_to_zero reset_to_zero `(v  1 e 1 0 ]
 "3263 C:\Program Files\Microchip\xc8\v2.50\pic\include\proc\pic18f4550.h
 [v _LATD LATD `VEuc  1 e 1 @3980 ]
@@ -64,34 +64,34 @@
 [v _ADCON1 ADCON1 `VEuc  1 e 1 @4033 ]
 "7716
 [v _HLVDCON HLVDCON `VEuc  1 e 1 @4050 ]
-[s S92 . 1 `uc 1 HLVDL 1 0 :4:0 
+[s S91 . 1 `uc 1 HLVDL 1 0 :4:0 
 `uc 1 HLVDEN 1 0 :1:4 
 `uc 1 IRVST 1 0 :1:5 
 `uc 1 . 1 0 :1:6 
 `uc 1 VDIRMAG 1 0 :1:7 
 ]
 "7757
-[s S98 . 1 `uc 1 HLVDL0 1 0 :1:0 
+[s S97 . 1 `uc 1 HLVDL0 1 0 :1:0 
 `uc 1 HLVDL1 1 0 :1:1 
 `uc 1 HLVDL2 1 0 :1:2 
 `uc 1 HLVDL3 1 0 :1:3 
 ]
-[s S103 . 1 `uc 1 LVDL0 1 0 :1:0 
+[s S102 . 1 `uc 1 LVDL0 1 0 :1:0 
 `uc 1 LVDL1 1 0 :1:1 
 `uc 1 LVDL2 1 0 :1:2 
 `uc 1 LVDL3 1 0 :1:3 
 `uc 1 LVDEN 1 0 :1:4 
 `uc 1 IVRST 1 0 :1:5 
 ]
-[s S110 . 1 `uc 1 LVV0 1 0 :1:0 
+[s S109 . 1 `uc 1 LVV0 1 0 :1:0 
 `uc 1 LVV1 1 0 :1:1 
 `uc 1 LVV2 1 0 :1:2 
 `uc 1 LVV3 1 0 :1:3 
 `uc 1 . 1 0 :1:4 
 `uc 1 BGST 1 0 :1:5 
 ]
-[u S117 . 1 `S92 1 . 1 0 `S98 1 . 1 0 `S103 1 . 1 0 `S110 1 . 1 0 ]
-[v _HLVDCONbits HLVDCONbits `VES117  1 e 1 @4050 ]
+[u S116 . 1 `S91 1 . 1 0 `S97 1 . 1 0 `S102 1 . 1 0 `S109 1 . 1 0 ]
+[v _HLVDCONbits HLVDCONbits `VES116  1 e 1 @4050 ]
 "8069
 [v _T0CON T0CON `VEuc  1 e 1 @4053 ]
 "8146
@@ -102,8 +102,6 @@
 [v _GIEH GIEH `VEb  1 e 0 @32663 ]
 "9751
 [v _GIEL GIEL `VEb  1 e 0 @32662 ]
-"9772
-[v _HLVDEN HLVDEN `VEb  1 e 0 @32404 ]
 "9775
 [v _HLVDIE HLVDIE `VEb  1 e 0 @32002 ]
 "9778
@@ -118,8 +116,6 @@
 [v _INTEDG0 INTEDG0 `VEb  1 e 0 @32654 ]
 "9892
 [v _IPEN IPEN `VEb  1 e 0 @32391 ]
-"9904
-[v _IRVST IRVST `VEb  1 e 0 @32405 ]
 "9934
 [v _LATA1 LATA1 `VEb  1 e 0 @31817 ]
 "9937
@@ -156,10 +152,8 @@
 [v _TRISB1 TRISB1 `VEb  1 e 0 @31897 ]
 "10933
 [v _TRISC1 TRISC1 `VEb  1 e 0 @31905 ]
-"11113
-[v _VDIRMAG VDIRMAG `VEb  1 e 0 @32407 ]
 "52 C:\Users\sergi\OneDrive\Documents\Universidad\Micros\Labs\Laboratorio_3\Lab3.X\Lab3.c
-[v _vdd_low vdd_low `VEuc  1 e 1 0 ]
+[v _vdd_low vdd_low `uc  1 e 1 0 ]
 "53
 [v _unidades unidades `VEuc  1 e 1 0 ]
 [v _decenas decenas `VEuc  1 e 1 0 ]
@@ -168,62 +162,62 @@
 [v _finished finished `VEuc  1 e 1 0 ]
 "55
 [v _emg_latched emg_latched `VEuc  1 e 1 0 ]
-"104
+"97
 [v _main main `(v  1 e 1 0 ]
 {
-"172
+"165
 [v main@rb1 rb1 `uc  1 a 1 41 ]
-"163
+"156
 [v main@rc1 rc1 `uc  1 a 1 40 ]
-"152
+"145
 [v main@last_rb1 last_rb1 `uc  1 a 1 39 ]
-"151
+"144
 [v main@last_rc1 last_rc1 `uc  1 a 1 38 ]
-"179
+"172
 } 0
-"206
+"199
 [v _tmr0_start tmr0_start `(v  1 e 1 0 ]
 {
-"229
+"222
 } 0
-"186
+"179
 [v _hlvd_init_4v hlvd_init_4v `(v  1 e 1 0 ]
 {
-"204
+"197
 } 0
-"264
+"257
 [v _advance_one_press advance_one_press `(v  1 e 1 0 ]
 {
-"286
+"279
 } 0
-"288
+"281
 [v _reset_to_zero reset_to_zero `(v  1 e 1 0 ]
 {
 [v reset_to_zero@keep_started keep_started `uc  1 p 1 wreg ]
 [v reset_to_zero@keep_started keep_started `uc  1 p 1 wreg ]
 [v reset_to_zero@keep_started keep_started `uc  1 p 1 13 ]
-"296
+"289
 } 0
-"232
+"225
 [v _sevenseg_bcd sevenseg_bcd `(v  1 e 1 0 ]
 {
 [v sevenseg_bcd@d d `uc  1 p 1 wreg ]
-"233
+"226
 [v sevenseg_bcd@v v `uc  1 a 1 7 ]
-"232
+"225
 [v sevenseg_bcd@d d `uc  1 p 1 wreg ]
 [v sevenseg_bcd@d d `uc  1 p 1 6 ]
-"235
+"228
 } 0
-"244
+"237
 [v _set_rgb_by_decena set_rgb_by_decena `(v  1 e 1 0 ]
 {
 [v set_rgb_by_decena@d d `uc  1 p 1 wreg ]
 [v set_rgb_by_decena@d d `uc  1 p 1 wreg ]
 [v set_rgb_by_decena@d d `uc  1 p 1 12 ]
-"253
+"246
 } 0
-"238
+"231
 [v _rgb_set rgb_set `(v  1 e 1 0 ]
 {
 [v rgb_set@r r `uc  1 p 1 wreg ]
@@ -231,7 +225,7 @@
 [v rgb_set@g g `uc  1 p 1 6 ]
 [v rgb_set@b b `uc  1 p 1 7 ]
 [v rgb_set@r r `uc  1 p 1 8 ]
-"242
+"235
 } 0
 "4 C:\Program Files\Microchip\xc8\v2.50\pic\sources\c90\common\lbmod.c
 [v ___lbmod __lbmod `(uc  1 e 1 0 ]
@@ -248,14 +242,14 @@
 [v ___lbmod@dividend dividend `uc  1 p 1 7 ]
 "18
 } 0
-"255 C:\Users\sergi\OneDrive\Documents\Universidad\Micros\Labs\Laboratorio_3\Lab3.X\Lab3.c
+"248 C:\Users\sergi\OneDrive\Documents\Universidad\Micros\Labs\Laboratorio_3\Lab3.X\Lab3.c
 [v _beep_ms beep_ms `(v  1 e 1 0 ]
 {
-"256
+"249
 [v beep_ms@n n `ul  1 a 4 33 ]
-"255
+"248
 [v beep_ms@ms ms `ui  1 p 2 31 ]
-"261
+"254
 } 0
 "15 C:\Program Files\Microchip\xc8\v2.50\pic\sources\c90\common\Umul32.c
 [v ___lmul __lmul `(ul  1 e 4 0 ]
@@ -279,17 +273,17 @@
 [v ___lldiv@divisor divisor `ul  1 p 4 22 ]
 "30
 } 0
-"86 C:\Users\sergi\OneDrive\Documents\Universidad\Micros\Labs\Laboratorio_3\Lab3.X\Lab3.c
+"76 C:\Users\sergi\OneDrive\Documents\Universidad\Micros\Labs\Laboratorio_3\Lab3.X\Lab3.c
 [v _low_isr low_isr `IIL(v  1 e 1 0 ]
 {
-"101
+"94
 } 0
 "68
 [v _high_isr high_isr `IIH(v  1 e 1 0 ]
 {
-"84
+"74
 } 0
-"238
+"231
 [v i2_rgb_set rgb_set `(v  1 e 1 0 ]
 {
 [v i2rgb_set@r r `uc  1 p 1 wreg ]
@@ -297,5 +291,5 @@
 [v i2rgb_set@g g `uc  1 p 1 0 ]
 [v i2rgb_set@b b `uc  1 p 1 1 ]
 [v i2rgb_set@r r `uc  1 p 1 2 ]
-"242
+"235
 } 0

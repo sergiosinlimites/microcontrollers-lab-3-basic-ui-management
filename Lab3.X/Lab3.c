@@ -2,7 +2,7 @@
 #include <stdint.h>
 #define _XTAL_FREQ 4700000UL //Frecuencia de trabajo ¿? 
 
-// ==================== CONFIG (MCLRE OFF) ====================
+// ==================== CONFIG (MCLRE ON) ====================
 #pragma config WDT=OFF                                       //Desactiva el Watchdog
 #pragma config LVP=OFF                                        //Desactiva el Low-Voltage Programming
 #pragma config PBADEN = OFF                               //PORTB digital al inicio (RB0?RB4 no analógicos)
@@ -49,7 +49,7 @@
 // Display 7 segmentos
 
 // ===== Estado =====
-volatile uint8_t vdd_low = 0;
+unsigned char vdd_low = 0;
 volatile uint8_t unidades=0, decenas=0;
 volatile uint8_t started=0, finished=0;
 volatile uint8_t emg_latched = 0;   // 0 = normal; 1 = paro latcheado (solo MCLR lo limpia)
@@ -67,26 +67,14 @@ void reset_to_zero(uint8_t keep_started);
 // ===== ISR =====
 void __interrupt(high_priority) high_isr(void){
     if (INT0IF){
-        emg_latched = 1;           // ¡latchea el paro!
-        rgb_set(ON,OFF,OFF);       // rojo fijo
+        emg_latched = 1;
+        rgb_set(ON,OFF,OFF); // rojo
         INT0IF = 0;// limpia bandera
-    }
-    if(HLVDIF){
-        HLVDIF = 0;
-        if(VDIRMAG == 0){
-            vdd_low = 1; 
-            VDIRMAG = 1; // detectar subida
-        } else {
-            vdd_low = 0;
-            VDIRMAG = 0; // detectar bajada
-        }
     }
 }
 
 void __interrupt(low_priority) low_isr(void){
     if (TMR0IF){
-        TMR0IF = 0;
-        
         if (vdd_low){
             TMR0H = TMR0_PRELOAD_250MS_H;
             TMR0L = TMR0_PRELOAD_250MS_L;
@@ -94,8 +82,13 @@ void __interrupt(low_priority) low_isr(void){
             TMR0H = TMR0_PRELOAD_H;
             TMR0L = TMR0_PRELOAD_L;
         }
-        
-        CLK_LAT ^= 1; // RA1 1 Hz
+        TMR0IF = 0;
+        CLK_LAT ^= 1; // RA1 1 Hz / 4 Hz
+        vdd_low = 0;
+    }
+    if(HLVDIF){
+        vdd_low = 1;
+        HLVDIF = 0;
     }
     
 }
@@ -130,12 +123,12 @@ void main(void){
         rgb_set(ON,OFF,OFF);    // ROJO inmediato
         // Nota: NO tocamos TRISD/LATD ni seteamos 00 en display
     }
-    
-    // --- HLVD (~4V) ---
-    hlvd_init_4v();
 
     // --- Timer0 para el blink ---
     tmr0_start();
+    
+    // --- HLVD (~4V) ---
+    hlvd_init_4v();
     
     // --- UI solo si NO hay EMG activa ---
     if (!emg_latched) {
@@ -188,18 +181,18 @@ void hlvd_init_4v(void){
     // HLVDCON = [VDIRMAG - IRVST HLVDEN HLVDL3 HLVDL2 HLVDL1 HLVDL0]
     HLVDCON = 0b00000000;
     // Para min=3.7V typ=3.9V max=4.1V
-    HLVDCONbits.HLVDL3 = 1;              // 0b1011
-    HLVDCONbits.HLVDL2 = 0;
-    HLVDCONbits.HLVDL1 = 1;
-    HLVDCONbits.HLVDL0 = 1;
+    //HLVDCONbits.HLVDL3 = 1;              // 0b1011
+    //HLVDCONbits.HLVDL2 = 1;
+    //HLVDCONbits.HLVDL1 = 0;
+    //HLVDCONbits.HLVDL0 = 1;
     
-    
-    VDIRMAG = 0; // Detectar caida
-    HLVDEN  = 1; // Habilitar detector
-    while (!IRVST); // Mantener quieto hasta que sea estable para generar la interrupción
+    HLVDCONbits.HLVDL = 0b1100;
+    HLVDCONbits.VDIRMAG = 0; // Detectar caida
+    HLVDCONbits.HLVDEN  = 1; // Habilitar detector
+    while (!HLVDCONbits.IRVST); // Mantener quieto hasta que sea estable para generar la interrupción
 
     HLVDIF = 0; // Bajar bandera
-    HLVDIP = 1; // Dejar de alta prioridad
+    HLVDIP = 0; // Dejar de alta prioridad con 1
     HLVDIE = 1; // Habilitar
 }
 
@@ -214,13 +207,13 @@ void tmr0_start(void){
     // T0PS2 =1;
     // T0PS1 =0;
     // T0PS0 =0;
-    if (vdd_low){
-        TMR0H = TMR0_PRELOAD_250MS_H;   // o tus _125ms_ si te quedas con 4 Hz
-        TMR0L = TMR0_PRELOAD_250MS_L;
-    } else {
-        TMR0H = TMR0_PRELOAD_H;         // 0.5 s (para 1 Hz de parpadeo)
-        TMR0L = TMR0_PRELOAD_L;
-    }
+//    if (vdd_low == 1){
+//        TMR0H = TMR0_PRELOAD_250MS_H;   // o tus _125ms_ si te quedas con 4 Hz
+//        TMR0L = TMR0_PRELOAD_250MS_L;
+//    } else {
+//        TMR0H = TMR0_PRELOAD_H;         // 0.5 s (para 1 Hz de parpadeo)
+//        TMR0L = TMR0_PRELOAD_L;
+//    }
     
     TMR0IP = 0; // TMR0 Overflow Interrupt Priority bit como HIGH PRIORITY
     TMR0IF = 0; // Bandera de interrupción

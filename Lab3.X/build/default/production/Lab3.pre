@@ -5676,7 +5676,7 @@ unsigned char __t3rd16on(void);
 #pragma config FOSC = HS
 
 # 52
-volatile uint8_t vdd_low = 0;
+unsigned char vdd_low = 0;
 volatile uint8_t unidades=0, decenas=0;
 volatile uint8_t started=0, finished=0;
 volatile uint8_t emg_latched = 0;
@@ -5698,22 +5698,10 @@ emg_latched = 1;
 rgb_set(1u,0u,0u);
 INT0IF = 0;
 }
-if(HLVDIF){
-HLVDIF = 0;
-if(VDIRMAG == 0){
-vdd_low = 1;
-VDIRMAG = 1;
-} else {
-vdd_low = 0;
-VDIRMAG = 0;
-}
-}
 }
 
 void __interrupt(low_priority) low_isr(void){
 if (TMR0IF){
-TMR0IF = 0;
-
 if (vdd_low){
 TMR0H = 0xDC;
 TMR0L = 0x24;
@@ -5721,8 +5709,13 @@ TMR0L = 0x24;
 TMR0H = 0x70;
 TMR0L = 0x91;
 }
-
+TMR0IF = 0;
 LATA1 ^= 1;
+vdd_low = 0;
+}
+if(HLVDIF){
+vdd_low = 1;
+HLVDIF = 0;
 }
 
 }
@@ -5759,10 +5752,10 @@ rgb_set(1u,0u,0u);
 }
 
 
-hlvd_init_4v();
-
-
 tmr0_start();
+
+
+hlvd_init_4v();
 
 
 if (!emg_latched) {
@@ -5815,18 +5808,14 @@ void hlvd_init_4v(void){
 
 HLVDCON = 0b00000000;
 
-HLVDCONbits.HLVDL3 = 1;
-HLVDCONbits.HLVDL2 = 0;
-HLVDCONbits.HLVDL1 = 1;
-HLVDCONbits.HLVDL0 = 1;
-
-
-VDIRMAG = 0;
-HLVDEN = 1;
-while (!IRVST);
+# 189
+HLVDCONbits.HLVDL = 0b1100;
+HLVDCONbits.VDIRMAG = 0;
+HLVDCONbits.HLVDEN = 1;
+while (!HLVDCONbits.IRVST);
 
 HLVDIF = 0;
-HLVDIP = 1;
+HLVDIP = 0;
 HLVDIE = 1;
 }
 
@@ -5834,15 +5823,7 @@ void tmr0_start(void){
 
 T0CON = 0b00000011;
 
-# 217
-if (vdd_low){
-TMR0H = 0xDC;
-TMR0L = 0x24;
-} else {
-TMR0H = 0x70;
-TMR0L = 0x91;
-}
-
+# 218
 TMR0IP = 0;
 TMR0IF = 0;
 TMR0IE = 1;
