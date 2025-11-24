@@ -1,289 +1,254 @@
-#include <xc.h>
-#include <stdint.h>
-#define _XTAL_FREQ 4700000UL //Frecuencia de trabajo ¿? 
+#include <xc.h>                       //Libreria de PIC's, que pic se selecciono, llamar bits de con
+#define _XTAL_FREQ 4000000  // Definir la constante para el cálculo de retardos
+#pragma config FOSC=HS       // Configurar el reloj externo
+//#pragma config FOSC=INTOSC_EC // Configurar el reloj externo
+#pragma config WDT=OFF      // Desactivar el perro guardian libera pin RB0 a RB4 para que sean digitales 
+#pragma config LVP=OFF       // Programa el PIC NO PERMITER PROGRAMACION EN BAJO VOLTAJE
 
-// ==================== CONFIG (MCLRE ON) ====================
-#pragma config WDT=OFF                                       //Desactiva el Watchdog
-#pragma config LVP=OFF                                        //Desactiva el Low-Voltage Programming
-#pragma config PBADEN = OFF                               //PORTB digital al inicio (RB0?RB4 no analógicos)
-#pragma config MCLRE=ON                                    //Masster clear habilitado
-#pragma config FOSC = HS  // Oscilador interno, RA6 y RA7 como I/O o CLKO
-
-//#pragma config FOSC = EC_EC                                // Reloj externo del Cristal (CLKIN en RA6)
-
-// ===== Parámetros =====
-#define BEEP_PERIOD_US 250u
-#define ON  1u
-#define OFF 0u
-
-// Buzzer (RA2)
-#define BUZZ_TRIS TRISA2
-#define BUZZ_LAT LATA2
-// LED clock (RA1)
-#define CLK_TRIS TRISA1
-#define CLK_LAT LATA1
-// Timer0 para 1 Hz en RA1 (toggle cada 0.5s) con prescaler 1:16, son 36718, faltan(28817)_10 = (7091)_16
-#define TMR0_PRELOAD_H  0x70
-#define TMR0_PRELOAD_L  0x91
-// Timer0 para 4Hz en RA1 (toggle cada 0.125s) con prescaler 1:16 son 9180, faltan (56356)_10 = (DC24)_16
-#define TMR0_PRELOAD_250MS_H  0xDC
-#define TMR0_PRELOAD_250MS_L  0x24
+//Las funciones se escriben despues del MAIN en C
 
 
-// Entradas
-// Botón para bloquear conteo al poner 5V
-#define BTN_EMG_TRIS TRISB0
-#define BTN_EMG_PORT RB0
-// Botón para resetear conteo al poner 5V
-#define BTN_RST_TRIS TRISB1
-#define BTN_RST_PORT RB1   // flanco 0->1 = reset
-// Botón para contar cuando al poner 0V
-#define COUNTER_TRIS TRISC1
-#define BTN_RC1_PORT RC1   // flanco 1->0 = paso (pull-up externo)
+//Prototipos
+unsigned char segmentos;                         // Variable char-> 8 bits 7 SEGMENTOS
+unsigned char DECENAS_RGB;                  //Led RGB se usa para que se lea como decenas pero abajo por ejemplo para cada
+                                                                     //decena se le asigna el color correcto correspondiente
+void __interrupt()ISR(void);                        //Definir interrupciones LIBRERIA XC8 Propia VOID no recibe ni entrega nada
+//Que_dato_retornan... Nombre_de_la_función...Que_tipo_de_dato_reciben
+unsigned char sensor;                               //Puede ser 0 o 1 u otra cosa por convenencia 0 o 1
+unsigned char Retorno;                            //Puede ser 0 o 1 u otra cosa por convenencia 0 o 1
 
-// RGB (RE0=B, RE1=G, RE2=R) - C?todo
-#define RGB_R_LAT LATE1
-#define RGB_G_LAT LATE0
-#define RGB_B_LAT LATE2
 
-// Display 7 segmentos
+void main (void){
+    //CONFIGURACIÓN DE LAS VARIABLES 
+    DECENAS_RGB=0;            //Inicia en 0 peroooo que es 0 pues magenta
+    segmentos=0;                 //Variable que se usa para visualizar el numero en el 7segmentos
+                                            //PIC no le importa si se introduce el pin en binario, decimal, hexadecimal
+                                            //Decodificador BCD se encarga de pasarlo a BCD
+    
+    sensor = 1;                      //Logica negativa por el sensor lo usamos para asegurarnos que el sensor no cuente doble
+    Retorno=0;                     //Variable que usaremos para detectar HLVD, cuando cae el voltaje a menos de 4.11
+    
+    // CONFIGURACIÓN DE LOS PUERTOS
+    ADCON1=0b00001111; //Quital las funciones analogas de los pines RA1-RA4, RB0-RB4 , RE0-RE2   
+    
+    // Pines para el RGB
+    TRISE=0; // Todos los pines del puerto E son salidas digitales  
+    LATE=0b00000111; // Todos los pines de salida del puerto E en 1 como la logica esta inversa pues aparece inicialmente en NEGRO
+                                     //todo apagado
+    
+    // Pines para el Siete segmentos
+    TRISD=0;                         // Todos los pines del puerto D son salidas digitales
+    LATD=segmentos;           // El puerto es igual a el valor de la variable segmentos 
+    
+    // Pin del led de operación
+    TRISA1=0; // Pin A1 es configurado como salida digital
+    LATA1=0; // La salida del Pin A1 es 0
+    
+    
+    TRISA2=0; // Pin A1 es configurado como SALIDA DIGITAL
+    LATA2=0; // La salida del Pin A2 es 0
+    
+    //TRISB2 = 0; // Configura RB2 como salida
+    //LATB2 = 0;   // Inicializa en nivel bajo
+    
+    //Pin del pulsador de conteo
+    TRISC1=1; //Pin C1 es configurado como ENTRADA DIGITAL
+ 
+    // CONFIGURACIÓN DE LAS INTERRUPCIONES 
+    
+    // Configuración de la interrupción del TIMER0
+    
+    T0CON=0b00000011; //Configuración del timer0 modo 16 bits - prescale 16 
+    TMR0=34286; // Valor de precarga del TIMER0
+    TMR0IF=0; // Bandera inicializada en 0 para que todavia no cuente
+    TMR0IE=1; // Habilitación local de la interrupción 
+    TMR0ON=1; // Encender el Timer0
+    
+    // Configuración de la interrución RB0 PARADA DE EMERGENCIA
+    //Usamos registros INTCON y INTCON2
+    INTEDG0=1;                          // Se active con una subida  (Registro INTCON2)
+    INT0IF=0;                              // Bandera inicializada en 0  BANDERA CARACTERISTICA (Registro INTCON)
+    INT0IE=1;                              // Habilitación local de la interrupción ENABLE (Registro INTCON)
+   
+    
+    // Configuración de la interrución RB1 REINICIO DE CONTEO
+    //INT1 exclusiva de RB1
+    INTEDG1=1; // Se active con una subida 
+    INT1IP=1; // Prioridad de la interrupción (Alta)
+    INT1IF=0; // Bandera inicializada en 0 BANDERA CARACTERISTICA
+    INT1IE=1; // Habilitación local de la interrupción ENABLE pa' que se pueda hacer la interrupcion
+    
+    
+    
+     //Habilitacion HLVDCON BONO Si o si toca poner el registro si no no funciona ¡¿?!
+    HLVDCONbits.HLVDL   = 0b1101;   // Selección del umbral TABLE 18-6 Y Pag 287 SE ACTIVA CON MENOS DE 4.11V
+    HLVDCONbits.VDIRMAG = 0;        // Detectar caída
+    HLVDCONbits.HLVDEN  = 1;           // Encender HLVD
 
-// ===== Estado =====
-unsigned char vdd_low = 0;
-volatile uint8_t unidades=0, decenas=0;
-volatile uint8_t started=0, finished=0;
-volatile uint8_t emg_latched = 0;   // 0 = normal; 1 = paro latcheado (solo MCLR lo limpia)
-// ===== Prototipos =====
-void init_hw(void);
-void hlvd_init_4v(void);
-void tmr0_start(void);
-void sevenseg_bcd(uint8_t d);      // *** SOLO RD0..RD3 ***
-void rgb_set(uint8_t r, uint8_t g, uint8_t b);
-void set_rgb_by_decena(uint8_t d);
-void beep_ms(uint16_t ms);
-void advance_one_press(void);
-void reset_to_zero(uint8_t keep_started);
+    while(!HLVDCONbits.IRVST);     //Esperar referencia estable osea espera un 1, si no es estable vale un 0 (!Negacion lo contrario)
 
-// ===== ISR =====
-void __interrupt(high_priority) high_isr(void){
-    if (INT0IF){
-        emg_latched = 1;
-        rgb_set(ON,OFF,OFF); // rojo
-        INT0IF = 0;// limpia bandera
-    }
-}
-
-void __interrupt(low_priority) low_isr(void){
-    if (TMR0IF){
-        if (vdd_low){
-            TMR0H = TMR0_PRELOAD_250MS_H;
-            TMR0L = TMR0_PRELOAD_250MS_L;
-        } else {
-            TMR0H = TMR0_PRELOAD_H;
-            TMR0L = TMR0_PRELOAD_L;
+    HLVDIF = 0;                  // Limpiar bandera
+    HLVDIE = 1;                  // Habilitar interrupción HLVD
+    
+    PEIE=1;                                      // Habilitar interrupciones de perifericos 
+    GIE=1;                                       //Habilitación global de las interrupciones para que funcionen, se ponen al final del codigo
+    
+    while (1){                                //While infinito de todo el codigo
+        
+        if(RC1==0){ // Verifica si el interruptor está pulsado  o el sensor tiene algo en frente
+            sensor =0; //Para que no cuente infinitamente
         }
-        TMR0IF = 0;
-        CLK_LAT ^= 1; // RA1 1 Hz / 4 Hz
-        vdd_low = 0;
+        
+        if(sensor==0){                                                             //Verifica si el interruptor está pulsado o el sensor tiene algo en frente
+            if(RC1==1){                                                              //Dejo de detectar 
+                __delay_ms(50);                                                  // delay pa' el pulsador pa' que no cuente doble
+                segmentos++;                                                    //Aumenta la variable segmentos +1 
+                if (segmentos==10 && DECENAS_RGB !=6){ //Si la cuenta llega a 10 y las decenas son diferentes de 6
+                    segmentos=0;                                               //Se reinicia la cuenta y en el siete segmentos aparece un 0
+
+                    for(int i = 0; i < 600; i++){  // 600 ciclos * 0.5 ms = 300 ms ESTO NO ES NECESARIO SI EL BUZZER FUERA ACTIVO
+                        //NECESITA UN TREN DE PULSOS SI ES PASIVO NO ES PWM
+                             LATA2 = 1;
+                              __delay_us(250);
+                            LATA2 = 0;
+                            __delay_us(250);
+                   }
+                    DECENAS_RGB++;  //Cambio de color pasa de 0 a 1 a 2 a 3 a 4 ...
+                }
+                
+                if (DECENAS_RGB==6){ // !!!! Ojito llega a 6 decenas aqui debe resetear
+                       for(int i = 0; i < 2000; i++){
+                            LATA2 = 1;
+                            __delay_us(250);
+                            LATA2 = 0;
+                            __delay_us(250);
+                    }
+                       DECENAS_RGB = 0;  //vuelve a 0 osea magenta
+
+                    }
+                LATD=segmentos; //El pic le da igual si lee binario o decimal en este caso lo esta leyendo en decimal, 
+                //luego mando binario y el conversor en fisico lo pasa a BCD
+             
+
+                //RGB - decenas 
+                //RE2=Rojo
+                //RE1=Azul
+                //RE0=Verde
+                
+                if(DECENAS_RGB==0){
+                    LATE=0b00000001; // Magenta  (Rojo+Azul)
+                }else if(DECENAS_RGB==1){
+                    LATE=0b00000101; // Azul 
+                }else if(DECENAS_RGB==2){
+                    LATE=0b00000100; // Cyan 
+                }else if(DECENAS_RGB==3){
+                    LATE=0b00000110; // Verde 
+                }else if(DECENAS_RGB==4){
+                    LATE=0b00000010; // Amarillo 
+                }else if(DECENAS_RGB==5){
+                    LATE=0b00000000; // Blanco
+                }
+
+                sensor=1; //Vuelve a su valor original
+            }
+        }    
     }
-    if(HLVDIF){
-        vdd_low = 1;
-        HLVDIF = 0;
-    }
-    
 }
 
-// ===== MAIN =====
-void main(void){
-    // --- I/O base: todo digital ---
-    ADCON1 = 0x0F;              // ANx -> digitales
-    TRISE  = 0b1000;            // RE3/MCLR input
-    LATE   = 0b1000;            // estado seguro en RE
-    // Buzzer y LED
-    BUZZ_TRIS = 0; BUZZ_LAT = 0;
-    CLK_TRIS  = 0; CLK_LAT  = 0;
-    // Entradas
-    BTN_EMG_TRIS = 1;           // RB0 (EMG)
-    BTN_RST_TRIS = 1;           // RB1
-    COUNTER_TRIS = 1;           // RC1
-    RBPU = 1;                   // pull-ups RB deshabilitados (usa externos)
+// INTERRUPCIONES 
+/*
+Queremos que oscile a 1Hz tiene que cumplir un ciclo cada segundo ósea prende y apaga eso es un ciclo para que cumpla cada 0,5 segundos debe cambiar de estado 
 
-    // --- Prioridades e INT0 (EMG) ---
-    IPEN = 1;                   // usar prioridades
-    GIEH = 1;                   // habilita alta prioridad
-    GIEL = 1;                   // habilita baja prioridad
-    INTEDG0 = 1;                // INT0 flanco 0->1
-    INT0IF  = 0;                // limpia bandera
-    INT0IE  = 1;                // habilita INT0
+T=0,5s (Tiempo)
+C=65536 ? TMR0 (Precarga)
+N (Preescaler) = 16
+Tiempo de instrucción (Variable) = 4/Fosc (Fosc reloj) = 1micro segundo
+T= (65536-TMR0)N(Tiempo de instrucción) -> TMR0=34286 PRECARGA cada 0,5 seg
+*/
 
-    // --- Latch EMG al arranque (si RB0 ya está activo) ---
-    __delay_ms(2);              // pequeño settle
-    if (BTN_EMG_PORT) {         // EMG activa al encender
-        emg_latched = 1;
-        rgb_set(ON,OFF,OFF);    // ROJO inmediato
-        // Nota: NO tocamos TRISD/LATD ni seteamos 00 en display
-    }
 
-    // --- Timer0 para el blink ---
-    tmr0_start();
-    
-    // --- HLVD (~4V) ---
-    hlvd_init_4v();
-    
-    // --- UI solo si NO hay EMG activa ---
-    if (!emg_latched) {
-        TRISD = 0b11110000;     // RD0..RD3 salidas BCD
-        LATD  = (LATD & 0xF0);  // 0 en nibble bajo
-        sevenseg_bcd(0);        // mostrar 00
-        rgb_set(OFF,OFF,OFF);   // negro
-        started = 0;
-        finished = 0;
-    }
 
-    // --- Loop principal ---
-    uint8_t last_rc1 = 1;       // RC1 reposo=1 (pull-up)
-    uint8_t last_rb1 = 0;
-
-    while (1) {
-        // Paro latcheado: mantener rojo y no atender entradas
-        if (emg_latched) {
-            rgb_set(ON,OFF,OFF);   // anclar ROJO durante EMG
-            __delay_ms(50);
-            continue;
+void __interrupt()ISR(void){
+    if(TMR0IF==1){                                  // Led de operacion RA1
+        if(Retorno==0){                                //Si no se detecta cambio en el voltaje HLVD conmuta normalito
+            TMR0=34286;                              // Valor de precarga de 0,5 Seg
+            TMR0IF=0;                                   //Vuelve a contar 
+            LATA1=LATA1^1; // Prende y apaga el led  CONMUTA XOR
+        }
+        else if(Retorno == 1){                     //Si detecta el cambio de HLVDL 
+                                                                 //Cambio conmuta 4 veces mas rapido
+            
+            TMR0=49911  ;                         // Valor de precarga -> T= C*N*Tinstr -> C= 65536-precarga(TMR0); 
+                                                              //N=16 (Configuración/Preescaler); Tinstr=4/Fosc=1us -> Despejando 
+                                                              //C=15625 -> TMR0=65536 - C = (TMR0=49911)
+            TMR0IF=0;                               // Bandera en 0
+            LATA1=LATA1^1;                     // Prende y apaga el led XOR
+            Retorno=0;                              //Para que vuelva a preguntar Variable HLVD
         }
 
-        // RC1: flanco 1->0 = avanzar un paso (o reiniciar si estaba en 59)
-        uint8_t rc1 = BTN_RC1_PORT;
-        if (last_rc1 == 1 && rc1 == 0) {
-            if (!started && !finished) { started = 1; set_rgb_by_decena(0); }
-            advance_one_press();
-            __delay_ms(50);        // antirrebote
-        }
-        last_rc1 = rc1;
-
-        // RB1: reset (flanco 0->1)
-        uint8_t rb1 = BTN_RST_PORT;
-        if (last_rb1 == 0 && rb1 == 1) {
-            reset_to_zero(started); // 00 y magenta si started=1; negro si no
-            __delay_ms(50);
-        }
-        last_rb1 = rb1;
     }
-}
-
-// ===== Initialize Hardware =====
-void init_hw(void){
     
-}
-
-void hlvd_init_4v(void){
-    // Apagar para configurar
-    // HLVDCON = [VDIRMAG - IRVST HLVDEN HLVDL3 HLVDL2 HLVDL1 HLVDL0]
-    HLVDCON = 0b00000000;
-    // Para min=3.7V typ=3.9V max=4.1V
-    //HLVDCONbits.HLVDL3 = 1;              // 0b1011
-    //HLVDCONbits.HLVDL2 = 1;
-    //HLVDCONbits.HLVDL1 = 0;
-    //HLVDCONbits.HLVDL0 = 1;
     
-    HLVDCONbits.HLVDL = 0b1100;
-    HLVDCONbits.VDIRMAG = 0; // Detectar caida
-    HLVDCONbits.HLVDEN  = 1; // Habilitar detector
-    while (!HLVDCONbits.IRVST); // Mantener quieto hasta que sea estable para generar la interrupción
-
-    HLVDIF = 0; // Bajar bandera
-    HLVDIP = 0; // Dejar de alta prioridad con 1
-    HLVDIE = 1; // Habilitar
-}
-
-void tmr0_start(void){
-    // T0CON: [TMR0ON T08BIT T0CS T0SE PSA T0PS2 T0PS1 T0PS0] = [7:0]
-    T0CON = 0b00000011; // Prescaler 1:16
-    // TMR0ON=0: Stops timer 0;
-    // T08BIT=0: Timer0 is configured as a 16-bit timer/counter ;
-    // T0CS  =0: Internal instruction cycle clock (CLKO);
-    // T0SE  =0: Increment on low-to-high transition on T0CKI pin;
-    // PSA   =0: Timer0 prescaler is assigned;
-    // T0PS2 =1;
-    // T0PS1 =0;
-    // T0PS0 =0;
-//    if (vdd_low == 1){
-//        TMR0H = TMR0_PRELOAD_250MS_H;   // o tus _125ms_ si te quedas con 4 Hz
-//        TMR0L = TMR0_PRELOAD_250MS_L;
-//    } else {
-//        TMR0H = TMR0_PRELOAD_H;         // 0.5 s (para 1 Hz de parpadeo)
-//        TMR0L = TMR0_PRELOAD_L;
-//    }
+    if (HLVDIF)                                      //Si se activó la interrupción HLVD
+    {
+        Retorno=1;                                 //Aqui usamos la variable para saber si el voltaje BAJO recuerda que inicio en 0
+        HLVDIF = 0;                               // Limpiar bandera            
+    }
     
-    TMR0IP = 0; // TMR0 Overflow Interrupt Priority bit como HIGH PRIORITY
-    TMR0IF = 0; // Bandera de interrupción
-    TMR0IE = 1; // TMR0 Overflow Interrupt Enable bit HABILITADO
-    TMR0ON = 1; // Timer0 habilitado
-}
+    if (INT0IF==1){                              // Para de emergencia - RB0
+        INT0IF=0;                                 // Bandera en 0
+        LATE=0b00000011;                 // El led del rgb en rojo      
+        while(1){                                   //Infinito sin parada  
+            
+            
+            //CONMUTACIÓN LED RA1 INCLUSO EN PARADA DE EMERGENCIA
+                if(TMR0IF==1){                                  // Led de operacion RA1
+                    if(Retorno==0){
+                        TMR0=34286;                              // Valor de precarga de 0,5 Seg
+                        TMR0IF=0;                                   //Vuelve a contar 
+                        LATA1=LATA1^1;                          // Prende y apaga el led  CONMUTA XOR
+                    }
+                    
+                            else if(Retorno == 1){                 //Cambio conmuta 4 veces mas rapido
+                                TMR0=49911  ;                          // Valor de precarga -> T= C*N*Tinstr -> C= 65536-precarga(TMR0); 
+                                                                                //N=16 (Configuración/Preescaler); Tinstr=4/Fosc=1us -> Despejando 
+                                                                                //C=15625 -> TMR0=65536 - C = (TMR0=49911)
+                                TMR0IF=0;                                // Bandera en 0
+                                LATA1=LATA1^1;                       // Prende y apaga el led XOR
+                                Retorno=0;                            //Para que vuelva a preguntar 
+                            }
 
-// === Display BCD en RD0..RD3 (NO toca RD4..RD7) ===
-void sevenseg_bcd(uint8_t d){
-    uint8_t v = (d & 0x0F);        // BCD 0..9
-    LATD = (LATD & 0xF0) | v;      // solo nibble bajo
-}
+                 }
+                
 
-// RE2=R, RE1=G, RE0=B (com?n c?todo: 1=encendido)
-void rgb_set(uint8_t r, uint8_t g, uint8_t b){
-    RGB_R_LAT = r ? 1 : 0;
-    RGB_G_LAT = g ? 1 : 0;
-    RGB_B_LAT = b ? 1 : 0;
-}
-
-void set_rgb_by_decena(uint8_t d){
-    switch (d % 6){
-        case 0: rgb_set(ON,OFF,ON); break;   // magenta (R+B)
-        case 1: rgb_set(OFF,OFF,ON); break;  // azul (B)
-        case 2: rgb_set(OFF,ON,ON); break;   // cian (G+B)
-        case 3: rgb_set(OFF,ON,OFF); break;  // verde (G)
-        case 4: rgb_set(ON,ON,OFF); break;   // amarillo (R+G)
-        default: rgb_set(ON,ON,ON); break;   // blanco (R+G+B)
+                /*FIN de CONMUTACIÓN LED RA1 INCLUSO EN PARADA DE EMERGENCIA
+                Lo unico que hice fue copiar el IF de LED DE OPERACION
+                 * 
+                Curiosidad: el PIC al ser alimentado con menos de 4,11 Voltios con este Trocito de codigo 
+                sigue conmutando a la  veces mas rapido por la interrupcion HLVD PEROOOOO
+                si se activa la parada de emergencia vuelve a conmutar a la velocidad normal
+                esto porque tiene PRIORIDAD ALTA la interrupcion del LED ROJO y en el while infinito
+                solo definimos que el led RA1 siga conmutando a 1 Seg, si se quiere que cambie solo
+                 se debe añadir el IF de HLVD
+                */
+                
+                //CAMBIO DE VELOCIDAD SI SE DESEO SE VA LA CURIOSIDAD :C
+                
+                /*
+                if (HLVDIF){                                      //Si se activó la interrupción HLVD
+                    Retorno=1;
+                    HLVDIF = 0;                               // Limpiar bandera
+                }                
+                */
+                
+                
+                  }
     }
-}
-
-void beep_ms(uint16_t ms){
-    uint32_t n = ((uint32_t)ms*1000u)/(2u*BEEP_PERIOD_US);
-    while(n--){
-        BUZZ_LAT=1; __delay_us(BEEP_PERIOD_US);
-        BUZZ_LAT=0; __delay_us(BEEP_PERIOD_US);
-    }
-}
-
-// Avanza una unidad por cada toque. Si estaba en 59, el siguiente toque reinicia.
-void advance_one_press(void){
-    if (finished){                // en 59 ? reset por toque
-        reset_to_zero(1);         // started se mantiene
-        beep_ms(1000);
-        finished = 0;
-        return;
-    }
-
-    if (unidades < 9){
-        unidades++;
-    } else {
-        unidades = 0;
-        if (decenas < 5){
-            decenas++;
-            set_rgb_by_decena(decenas);
-            beep_ms(80);          // beep al cambiar de decena (color)
-        } else {
-            decenas = 5; unidades = 9; // 59
-            finished = 1;
-        }
-    }
-    sevenseg_bcd(unidades);
-}
-
-void reset_to_zero(uint8_t keep_started){
-    unidades = 0;
-    decenas  = 0;
-    finished = 0;
-    sevenseg_bcd(0);
-    if (keep_started){ set_rgb_by_decena(0); }  // magenta si ya estaba iniciado
-    else              { rgb_set(OFF,OFF,OFF); } // negro si a?n no hab?a iniciado
-    started = keep_started;
+    if (INT1IF==1){                              // Reseteo del conteo - RB1
+        INT1IF=0;                                 // Bandera en 0
+        segmentos=0;                         //El siete segmentos vuelve a 0
+        DECENAS_RGB=0;                    
+        LATD=segmentos; 
+        LATE=0b00000001;                   // Led rgb a Magenta 
+    }   
 }

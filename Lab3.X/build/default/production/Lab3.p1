@@ -1,82 +1,49 @@
 Version 3.2 HI-TECH Software Intermediate Code
-[t ~ __interrupt . k ]
-[t T41 __interrupt high_priority  ]
-"9832 C:\Program Files\Microchip\xc8\v2.50\pic\include\proc\pic18f4550.h
-[v _INT0IF `Vb ~T0 @X0 0 e@32657 ]
-"61 Lab3.c
-[v _rgb_set `(v ~T0 @X0 0 ef3`uc`uc`uc ]
-[t T42 __interrupt low_priority  ]
-"10819 C:\Program Files\Microchip\xc8\v2.50\pic\include\proc\pic18f4550.h
-[v _TMR0IF `Vb ~T0 @X0 0 e@32658 ]
-"8153
-[v _TMR0H `Vuc ~T0 @X0 0 e@4055 ]
-"8146
-[v _TMR0L `Vuc ~T0 @X0 0 e@4054 ]
-"9934
-[v _LATA1 `Vb ~T0 @X0 0 e@31817 ]
-"9778
-[v _HLVDIF `Vb ~T0 @X0 0 e@32010 ]
 [p mainexit ]
-"6581
+"6581 C:\Program Files\Microchip\xc8\v2.50\pic\include\proc\pic18f4550.h
 [v _ADCON1 `Vuc ~T0 @X0 0 e@4033 ]
 "4223
 [v _TRISE `Vuc ~T0 @X0 0 e@3990 ]
 "3375
 [v _LATE `Vuc ~T0 @X0 0 e@3981 ]
+"4001
+[v _TRISD `Vuc ~T0 @X0 0 e@3989 ]
+"3263
+[v _LATD `Vuc ~T0 @X0 0 e@3980 ]
+"10888
+[v _TRISA1 `Vb ~T0 @X0 0 e@31889 ]
+"9934
+[v _LATA1 `Vb ~T0 @X0 0 e@31817 ]
 "10891
 [v _TRISA2 `Vb ~T0 @X0 0 e@31890 ]
 "9937
 [v _LATA2 `Vb ~T0 @X0 0 e@31818 ]
-"10888
-[v _TRISA1 `Vb ~T0 @X0 0 e@31889 ]
-"10906
-[v _TRISB0 `Vb ~T0 @X0 0 e@31896 ]
-"10909
-[v _TRISB1 `Vb ~T0 @X0 0 e@31897 ]
 "10933
 [v _TRISC1 `Vb ~T0 @X0 0 e@31905 ]
-"10396
-[v _RBPU `Vb ~T0 @X0 0 e@32655 ]
-"9892
-[v _IPEN `Vb ~T0 @X0 0 e@32391 ]
-"9748
-[v _GIEH `Vb ~T0 @X0 0 e@32663 ]
-"9751
-[v _GIEL `Vb ~T0 @X0 0 e@32662 ]
+"8069
+[v _T0CON `Vuc ~T0 @X0 0 e@4053 ]
+"8139
+[v _TMR0 `Vus ~T0 @X0 0 e@4054 ]
+"10819
+[v _TMR0IF `Vb ~T0 @X0 0 e@32658 ]
+"10816
+[v _TMR0IE `Vb ~T0 @X0 0 e@32661 ]
+"10825
+[v _TMR0ON `Vb ~T0 @X0 0 e@32431 ]
 "9877
 [v _INTEDG0 `Vb ~T0 @X0 0 e@32654 ]
+"9832
+[v _INT0IF `Vb ~T0 @X0 0 e@32657 ]
 "9829
 [v _INT0IE `Vb ~T0 @X0 0 e@32660 ]
-[v F44 `(v ~T0 @X0 1 tf1`ul ]
-"20 ../../../../../../../../../Program Files/Microchip/xc8/v2.50/pic/include\builtins.h
-[v __delay `JF44 ~T0 @X0 0 e ]
-[p i __delay ]
-[t ~ __deprecated__ ]
-[t T12 __deprecated__ ]
-"10363 C:\Program Files\Microchip\xc8\v2.50\pic\include\proc\pic18f4550.h
-[v _RB0 `Vb ~T12 @X0 0 e@31752 ]
-"59 Lab3.c
-[v _tmr0_start `(v ~T0 @X0 0 ef ]
-"58
-[v _hlvd_init_4v `(v ~T0 @X0 0 ef ]
-"4001 C:\Program Files\Microchip\xc8\v2.50\pic\include\proc\pic18f4550.h
-[v _TRISD `Vuc ~T0 @X0 0 e@3989 ]
-"3263
-[v _LATD `Vuc ~T0 @X0 0 e@3980 ]
-"60 Lab3.c
-[v _sevenseg_bcd `(v ~T0 @X0 0 ef1`uc ]
-"10402 C:\Program Files\Microchip\xc8\v2.50\pic\include\proc\pic18f4550.h
-[v _RC1 `Vb ~T12 @X0 0 e@31761 ]
-"62 Lab3.c
-[v _set_rgb_by_decena `(v ~T0 @X0 0 ef1`uc ]
-"64
-[v _advance_one_press `(v ~T0 @X0 0 ef ]
-"10366 C:\Program Files\Microchip\xc8\v2.50\pic\include\proc\pic18f4550.h
-[v _RB1 `Vb ~T12 @X0 0 e@31753 ]
-"65 Lab3.c
-[v _reset_to_zero `(v ~T0 @X0 0 ef1`uc ]
-"7716 C:\Program Files\Microchip\xc8\v2.50\pic\include\proc\pic18f4550.h
-[v _HLVDCON `Vuc ~T0 @X0 0 e@4050 ]
+"9880
+[v _INTEDG1 `Vb ~T0 @X0 0 e@32653 ]
+"9850
+[v _INT1IP `Vb ~T0 @X0 0 e@32646 ]
+"9847
+[v _INT1IF `Vb ~T0 @X0 0 e@32640 ]
+"9844
+[v _INT1IE `Vb ~T0 @X0 0 e@32643 ]
 "7727
 [s S329 :4 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S329 . HLVDL HLVDEN IRVST . VDIRMAG ]
@@ -94,24 +61,24 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S328 . . . . . ]
 "7757
 [v _HLVDCONbits `VS328 ~T0 @X0 0 e@4050 ]
-"9784
-[v _HLVDIP `Vb ~T0 @X0 0 e@32018 ]
+"9778
+[v _HLVDIF `Vb ~T0 @X0 0 e@32010 ]
 "9775
 [v _HLVDIE `Vb ~T0 @X0 0 e@32002 ]
-"8069
-[v _T0CON `Vuc ~T0 @X0 0 e@4053 ]
-"10822
-[v _TMR0IP `Vb ~T0 @X0 0 e@32650 ]
-"10816
-[v _TMR0IE `Vb ~T0 @X0 0 e@32661 ]
-"10825
-[v _TMR0ON `Vb ~T0 @X0 0 e@32431 ]
-"10018
-[v _LATE1 `Vb ~T0 @X0 0 e@31849 ]
-"10015
-[v _LATE0 `Vb ~T0 @X0 0 e@31848 ]
-"10021
-[v _LATE2 `Vb ~T0 @X0 0 e@31850 ]
+"10273
+[v _PEIE `Vb ~T0 @X0 0 e@32662 ]
+"9745
+[v _GIE `Vb ~T0 @X0 0 e@32663 ]
+[t ~ __deprecated__ ]
+[t T21 __deprecated__ ]
+"10402
+[v _RC1 `Vb ~T21 @X0 0 e@31761 ]
+[v F44 `(v ~T0 @X0 1 tf1`ul ]
+"20 ../../../../../../../../../Program Files/Microchip/xc8/v2.50/pic/include\builtins.h
+[v __delay `JF44 ~T0 @X0 0 e ]
+[p i __delay ]
+[t ~ __interrupt . k ]
+[t T42 __interrupt  ]
 [; ;include\xc.h: 18: extern const char __xc8_OPTIM_SPEED;
 [; ;include\xc.h: 20: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -3653,673 +3620,509 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;include\pic18.h: 158: __attribute__((__unsupported__("The " "Write_b_eep" " routine is no longer supported. Please use the MPLAB X MCC."))) void Write_b_eep(unsigned int badd, unsigned char bdat);
 [; ;include\pic18.h: 192: unsigned char __t1rd16on(void);
 [; ;include\pic18.h: 193: unsigned char __t3rd16on(void);
-"6 Lab3.c
-[p x WDT=OFF ]
-"7
-[p x LVP=OFF ]
-"8
-[p x PBADEN=OFF ]
-"9
-[p x MCLRE=ON ]
-"10
+"3 Lab3.c
 [p x FOSC=HS ]
-"52
-[v _vdd_low `uc ~T0 @X0 1 e ]
-[i _vdd_low
--> -> 0 `i `uc
-]
-[; ;Lab3.c: 52: unsigned char vdd_low = 0;
-"53
-[v _unidades `Vuc ~T0 @X0 1 e ]
-[i _unidades
--> -> 0 `i `uc
-]
-[v _decenas `Vuc ~T0 @X0 1 e ]
-[i _decenas
--> -> 0 `i `uc
-]
-[; ;Lab3.c: 53: volatile uint8_t unidades=0, decenas=0;
-"54
-[v _started `Vuc ~T0 @X0 1 e ]
-[i _started
--> -> 0 `i `uc
-]
-[v _finished `Vuc ~T0 @X0 1 e ]
-[i _finished
--> -> 0 `i `uc
-]
-[; ;Lab3.c: 54: volatile uint8_t started=0, finished=0;
-"55
-[v _emg_latched `Vuc ~T0 @X0 1 e ]
-[i _emg_latched
--> -> 0 `i `uc
-]
-[; ;Lab3.c: 55: volatile uint8_t emg_latched = 0;
-[; ;Lab3.c: 57: void init_hw(void);
-[; ;Lab3.c: 58: void hlvd_init_4v(void);
-[; ;Lab3.c: 59: void tmr0_start(void);
-[; ;Lab3.c: 60: void sevenseg_bcd(uint8_t d);
-[; ;Lab3.c: 61: void rgb_set(uint8_t r, uint8_t g, uint8_t b);
-[; ;Lab3.c: 62: void set_rgb_by_decena(uint8_t d);
-[; ;Lab3.c: 63: void beep_ms(uint16_t ms);
-[; ;Lab3.c: 64: void advance_one_press(void);
-[; ;Lab3.c: 65: void reset_to_zero(uint8_t keep_started);
-[v $root$_high_isr `(v ~T0 @X0 0 e ]
-"68
-[v _high_isr `(v ~T41 @X0 1 ef ]
-{
-[; ;Lab3.c: 68: void __interrupt(high_priority) high_isr(void){
-[e :U _high_isr ]
-[f ]
-[; ;Lab3.c: 69: if (INT0IF){
-"69
-[e $ ! _INT0IF 363  ]
-{
-[; ;Lab3.c: 70: emg_latched = 1;
-"70
-[e = _emg_latched -> -> 1 `i `uc ]
-[; ;Lab3.c: 71: rgb_set(1u,0u,0u);
-"71
-[e ( _rgb_set (3 , , -> -> 1 `ui `uc -> -> 0 `ui `uc -> -> 0 `ui `uc ]
-[; ;Lab3.c: 72: INT0IF = 0;
-"72
-[e = _INT0IF -> -> 0 `i `b ]
-"73
-}
-[e :U 363 ]
-[; ;Lab3.c: 73: }
-[; ;Lab3.c: 74: }
-"74
-[e :UE 362 ]
-}
-[v $root$_low_isr `(v ~T0 @X0 0 e ]
-"76
-[v _low_isr `(v ~T42 @X0 1 ef ]
-{
-[; ;Lab3.c: 76: void __interrupt(low_priority) low_isr(void){
-[e :U _low_isr ]
-[f ]
-[; ;Lab3.c: 77: if (TMR0IF){
-"77
-[e $ ! _TMR0IF 365  ]
-{
-[; ;Lab3.c: 78: if (vdd_low){
-"78
-[e $ ! != -> _vdd_low `i -> -> -> 0 `i `uc `i 366  ]
-{
-[; ;Lab3.c: 79: TMR0H = 0xDC;
-"79
-[e = _TMR0H -> -> 220 `i `uc ]
-[; ;Lab3.c: 80: TMR0L = 0x24;
-"80
-[e = _TMR0L -> -> 36 `i `uc ]
-"81
-}
-[; ;Lab3.c: 81: } else {
-[e $U 367  ]
-[e :U 366 ]
-{
-[; ;Lab3.c: 82: TMR0H = 0x70;
-"82
-[e = _TMR0H -> -> 112 `i `uc ]
-[; ;Lab3.c: 83: TMR0L = 0x91;
-"83
-[e = _TMR0L -> -> 145 `i `uc ]
-"84
-}
-[e :U 367 ]
-[; ;Lab3.c: 84: }
-[; ;Lab3.c: 85: TMR0IF = 0;
-"85
-[e = _TMR0IF -> -> 0 `i `b ]
-[; ;Lab3.c: 86: LATA1 ^= 1;
-"86
-[e =^ _LATA1 -> -> 1 `i `b ]
-[; ;Lab3.c: 87: vdd_low = 0;
-"87
-[e = _vdd_low -> -> 0 `i `uc ]
-"88
-}
-[e :U 365 ]
-[; ;Lab3.c: 88: }
-[; ;Lab3.c: 89: if(HLVDIF){
-"89
-[e $ ! _HLVDIF 368  ]
-{
-[; ;Lab3.c: 90: vdd_low = 1;
-"90
-[e = _vdd_low -> -> 1 `i `uc ]
-[; ;Lab3.c: 91: HLVDIF = 0;
-"91
-[e = _HLVDIF -> -> 0 `i `b ]
-"92
-}
-[e :U 368 ]
-[; ;Lab3.c: 92: }
-[; ;Lab3.c: 94: }
-"94
-[e :UE 364 ]
-}
+"5
+[p x WDT=OFF ]
+"6
+[p x LVP=OFF ]
+"12
+[v _segmentos `uc ~T0 @X0 1 e ]
+[; ;Lab3.c: 12: unsigned char segmentos;
+"13
+[v _DECENAS_RGB `uc ~T0 @X0 1 e ]
+[; ;Lab3.c: 13: unsigned char DECENAS_RGB;
+[; ;Lab3.c: 15: void __interrupt()ISR(void);
+"17
+[v _sensor `uc ~T0 @X0 1 e ]
+[; ;Lab3.c: 17: unsigned char sensor;
+"18
+[v _Retorno `uc ~T0 @X0 1 e ]
+[; ;Lab3.c: 18: unsigned char Retorno;
 [v $root$_main `(v ~T0 @X0 0 e ]
-"97
+"21
 [v _main `(v ~T0 @X0 1 ef ]
 {
-[; ;Lab3.c: 97: void main(void){
+[; ;Lab3.c: 21: void main (void){
 [e :U _main ]
 [f ]
-[; ;Lab3.c: 99: ADCON1 = 0x0F;
-"99
+[; ;Lab3.c: 23: DECENAS_RGB=0;
+"23
+[e = _DECENAS_RGB -> -> 0 `i `uc ]
+[; ;Lab3.c: 24: segmentos=0;
+"24
+[e = _segmentos -> -> 0 `i `uc ]
+[; ;Lab3.c: 28: sensor = 1;
+"28
+[e = _sensor -> -> 1 `i `uc ]
+[; ;Lab3.c: 29: Retorno=0;
+"29
+[e = _Retorno -> -> 0 `i `uc ]
+[; ;Lab3.c: 32: ADCON1=0b00001111;
+"32
 [e = _ADCON1 -> -> 15 `i `uc ]
-[; ;Lab3.c: 100: TRISE = 0b1000;
-"100
-[e = _TRISE -> -> 8 `i `uc ]
-[; ;Lab3.c: 101: LATE = 0b1000;
-"101
-[e = _LATE -> -> 8 `i `uc ]
-[; ;Lab3.c: 103: TRISA2 = 0; LATA2 = 0;
-"103
-[e = _TRISA2 -> -> 0 `i `b ]
-[e = _LATA2 -> -> 0 `i `b ]
-[; ;Lab3.c: 104: TRISA1 = 0; LATA1 = 0;
-"104
+[; ;Lab3.c: 35: TRISE=0;
+"35
+[e = _TRISE -> -> 0 `i `uc ]
+[; ;Lab3.c: 36: LATE=0b00000111;
+"36
+[e = _LATE -> -> 7 `i `uc ]
+[; ;Lab3.c: 40: TRISD=0;
+"40
+[e = _TRISD -> -> 0 `i `uc ]
+[; ;Lab3.c: 41: LATD=segmentos;
+"41
+[e = _LATD _segmentos ]
+[; ;Lab3.c: 44: TRISA1=0;
+"44
 [e = _TRISA1 -> -> 0 `i `b ]
+[; ;Lab3.c: 45: LATA1=0;
+"45
 [e = _LATA1 -> -> 0 `i `b ]
-[; ;Lab3.c: 106: TRISB0 = 1;
-"106
-[e = _TRISB0 -> -> 1 `i `b ]
-[; ;Lab3.c: 107: TRISB1 = 1;
-"107
-[e = _TRISB1 -> -> 1 `i `b ]
-[; ;Lab3.c: 108: TRISC1 = 1;
-"108
+[; ;Lab3.c: 48: TRISA2=0;
+"48
+[e = _TRISA2 -> -> 0 `i `b ]
+[; ;Lab3.c: 49: LATA2=0;
+"49
+[e = _LATA2 -> -> 0 `i `b ]
+[; ;Lab3.c: 55: TRISC1=1;
+"55
 [e = _TRISC1 -> -> 1 `i `b ]
-[; ;Lab3.c: 109: RBPU = 1;
-"109
-[e = _RBPU -> -> 1 `i `b ]
-[; ;Lab3.c: 112: IPEN = 1;
-"112
-[e = _IPEN -> -> 1 `i `b ]
-[; ;Lab3.c: 113: GIEH = 1;
-"113
-[e = _GIEH -> -> 1 `i `b ]
-[; ;Lab3.c: 114: GIEL = 1;
-"114
-[e = _GIEL -> -> 1 `i `b ]
-[; ;Lab3.c: 115: INTEDG0 = 1;
-"115
+[; ;Lab3.c: 61: T0CON=0b00000011;
+"61
+[e = _T0CON -> -> 3 `i `uc ]
+[; ;Lab3.c: 62: TMR0=34286;
+"62
+[e = _TMR0 -> -> 34286 `l `us ]
+[; ;Lab3.c: 63: TMR0IF=0;
+"63
+[e = _TMR0IF -> -> 0 `i `b ]
+[; ;Lab3.c: 64: TMR0IE=1;
+"64
+[e = _TMR0IE -> -> 1 `i `b ]
+[; ;Lab3.c: 65: TMR0ON=1;
+"65
+[e = _TMR0ON -> -> 1 `i `b ]
+[; ;Lab3.c: 69: INTEDG0=1;
+"69
 [e = _INTEDG0 -> -> 1 `i `b ]
-[; ;Lab3.c: 116: INT0IF = 0;
-"116
+[; ;Lab3.c: 70: INT0IF=0;
+"70
 [e = _INT0IF -> -> 0 `i `b ]
-[; ;Lab3.c: 117: INT0IE = 1;
-"117
+[; ;Lab3.c: 71: INT0IE=1;
+"71
 [e = _INT0IE -> -> 1 `i `b ]
-[; ;Lab3.c: 120: _delay((unsigned long)((2)*(4700000UL/4000.0)));
-"120
-[e ( __delay (1 -> * -> -> 2 `i `d / -> -> 4700000 `ul `d .4000.0 `ul ]
-[; ;Lab3.c: 121: if (RB0) {
-"121
-[e $ ! _RB0 370  ]
+[; ;Lab3.c: 76: INTEDG1=1;
+"76
+[e = _INTEDG1 -> -> 1 `i `b ]
+[; ;Lab3.c: 77: INT1IP=1;
+"77
+[e = _INT1IP -> -> 1 `i `b ]
+[; ;Lab3.c: 78: INT1IF=0;
+"78
+[e = _INT1IF -> -> 0 `i `b ]
+[; ;Lab3.c: 79: INT1IE=1;
+"79
+[e = _INT1IE -> -> 1 `i `b ]
+[; ;Lab3.c: 84: HLVDCONbits.HLVDL = 0b1101;
+"84
+[e = . . _HLVDCONbits 0 0 -> -> 13 `i `uc ]
+[; ;Lab3.c: 85: HLVDCONbits.VDIRMAG = 0;
+"85
+[e = . . _HLVDCONbits 0 4 -> -> 0 `i `uc ]
+[; ;Lab3.c: 86: HLVDCONbits.HLVDEN = 1;
+"86
+[e = . . _HLVDCONbits 0 1 -> -> 1 `i `uc ]
+[; ;Lab3.c: 88: while(!HLVDCONbits.IRVST);
+"88
+[e $U 363  ]
+[e :U 364 ]
+[e :U 363 ]
+[e $ ! != -> . . _HLVDCONbits 0 2 `i -> -> -> 0 `i `Vuc `i 364  ]
+[e :U 365 ]
+[; ;Lab3.c: 90: HLVDIF = 0;
+"90
+[e = _HLVDIF -> -> 0 `i `b ]
+[; ;Lab3.c: 91: HLVDIE = 1;
+"91
+[e = _HLVDIE -> -> 1 `i `b ]
+[; ;Lab3.c: 93: PEIE=1;
+"93
+[e = _PEIE -> -> 1 `i `b ]
+[; ;Lab3.c: 94: GIE=1;
+"94
+[e = _GIE -> -> 1 `i `b ]
+[; ;Lab3.c: 96: while (1){
+"96
+[e :U 367 ]
 {
-[; ;Lab3.c: 122: emg_latched = 1;
-"122
-[e = _emg_latched -> -> 1 `i `uc ]
-[; ;Lab3.c: 123: rgb_set(1u,0u,0u);
-"123
-[e ( _rgb_set (3 , , -> -> 1 `ui `uc -> -> 0 `ui `uc -> -> 0 `ui `uc ]
-"125
-}
-[e :U 370 ]
-[; ;Lab3.c: 125: }
-[; ;Lab3.c: 128: tmr0_start();
-"128
-[e ( _tmr0_start ..  ]
-[; ;Lab3.c: 131: hlvd_init_4v();
-"131
-[e ( _hlvd_init_4v ..  ]
-[; ;Lab3.c: 134: if (!emg_latched) {
-"134
-[e $ ! ! != -> _emg_latched `i -> -> -> 0 `i `Vuc `i 371  ]
+[; ;Lab3.c: 98: if(RC1==0){
+"98
+[e $ ! == -> _RC1 `i -> 0 `i 369  ]
 {
-[; ;Lab3.c: 135: TRISD = 0b11110000;
-"135
-[e = _TRISD -> -> 240 `i `uc ]
-[; ;Lab3.c: 136: LATD = (LATD & 0xF0);
-"136
-[e = _LATD -> & -> _LATD `i -> 240 `i `uc ]
-[; ;Lab3.c: 137: sevenseg_bcd(0);
-"137
-[e ( _sevenseg_bcd (1 -> -> 0 `i `uc ]
-[; ;Lab3.c: 138: rgb_set(0u,0u,0u);
-"138
-[e ( _rgb_set (3 , , -> -> 0 `ui `uc -> -> 0 `ui `uc -> -> 0 `ui `uc ]
-[; ;Lab3.c: 139: started = 0;
-"139
-[e = _started -> -> 0 `i `uc ]
-[; ;Lab3.c: 140: finished = 0;
-"140
-[e = _finished -> -> 0 `i `uc ]
-"141
+[; ;Lab3.c: 99: sensor =0;
+"99
+[e = _sensor -> -> 0 `i `uc ]
+"100
 }
-[e :U 371 ]
-"144
-[v _last_rc1 `uc ~T0 @X0 1 a ]
-[; ;Lab3.c: 141: }
-[; ;Lab3.c: 144: uint8_t last_rc1 = 1;
-[e = _last_rc1 -> -> 1 `i `uc ]
-"145
-[v _last_rb1 `uc ~T0 @X0 1 a ]
-[; ;Lab3.c: 145: uint8_t last_rb1 = 0;
-[e = _last_rb1 -> -> 0 `i `uc ]
-[; ;Lab3.c: 147: while (1) {
-"147
+[e :U 369 ]
+[; ;Lab3.c: 100: }
+[; ;Lab3.c: 102: if(sensor==0){
+"102
+[e $ ! == -> _sensor `i -> 0 `i 370  ]
+{
+[; ;Lab3.c: 103: if(RC1==1){
+"103
+[e $ ! == -> _RC1 `i -> 1 `i 371  ]
+{
+[; ;Lab3.c: 104: _delay((unsigned long)((50)*(4000000/4000.0)));
+"104
+[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
+[; ;Lab3.c: 105: segmentos++;
+"105
+[e ++ _segmentos -> -> 1 `i `uc ]
+[; ;Lab3.c: 106: if (segmentos==10 && DECENAS_RGB !=6){
+"106
+[e $ ! && == -> _segmentos `i -> 10 `i != -> _DECENAS_RGB `i -> 6 `i 372  ]
+{
+[; ;Lab3.c: 107: segmentos=0;
+"107
+[e = _segmentos -> -> 0 `i `uc ]
+[; ;Lab3.c: 109: for(int i = 0; i < 600; i++){
+"109
+{
+[v _i `i ~T0 @X0 1 a ]
+[e = _i -> 0 `i ]
+[e $ < _i -> 600 `i 373  ]
+[e $U 374  ]
 [e :U 373 ]
 {
-[; ;Lab3.c: 149: if (emg_latched) {
-"149
-[e $ ! != -> _emg_latched `i -> -> -> 0 `i `Vuc `i 375  ]
-{
-[; ;Lab3.c: 150: rgb_set(1u,0u,0u);
-"150
-[e ( _rgb_set (3 , , -> -> 1 `ui `uc -> -> 0 `ui `uc -> -> 0 `ui `uc ]
-[; ;Lab3.c: 151: _delay((unsigned long)((50)*(4700000UL/4000.0)));
-"151
-[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 4700000 `ul `d .4000.0 `ul ]
-[; ;Lab3.c: 152: continue;
-"152
-[e $U 372  ]
-"153
+[; ;Lab3.c: 111: LATA2 = 1;
+"111
+[e = _LATA2 -> -> 1 `i `b ]
+[; ;Lab3.c: 112: _delay((unsigned long)((250)*(4000000/4000000.0)));
+"112
+[e ( __delay (1 -> * -> -> 250 `i `d / -> -> 4000000 `l `d .4000000.0 `ul ]
+[; ;Lab3.c: 113: LATA2 = 0;
+"113
+[e = _LATA2 -> -> 0 `i `b ]
+[; ;Lab3.c: 114: _delay((unsigned long)((250)*(4000000/4000000.0)));
+"114
+[e ( __delay (1 -> * -> -> 250 `i `d / -> -> 4000000 `l `d .4000000.0 `ul ]
+"115
 }
-[e :U 375 ]
-"156
-[v _rc1 `uc ~T0 @X0 1 a ]
-[; ;Lab3.c: 153: }
-[; ;Lab3.c: 156: uint8_t rc1 = RC1;
-[e = _rc1 -> -> _RC1 `i `uc ]
-[; ;Lab3.c: 157: if (last_rc1 == 1 && rc1 == 0) {
-"157
-[e $ ! && == -> _last_rc1 `i -> 1 `i == -> _rc1 `i -> 0 `i 376  ]
-{
-[; ;Lab3.c: 158: if (!started && !finished) { started = 1; set_rgb_by_decena(0); }
-"158
-[e $ ! && ! != -> _started `i -> -> -> 0 `i `Vuc `i ! != -> _finished `i -> -> -> 0 `i `Vuc `i 377  ]
-{
-[e = _started -> -> 1 `i `uc ]
-[e ( _set_rgb_by_decena (1 -> -> 0 `i `uc ]
+"109
+[e ++ _i -> 1 `i ]
+[e $ < _i -> 600 `i 373  ]
+[e :U 374 ]
+"115
 }
-[e :U 377 ]
-[; ;Lab3.c: 159: advance_one_press();
-"159
-[e ( _advance_one_press ..  ]
-[; ;Lab3.c: 160: _delay((unsigned long)((50)*(4700000UL/4000.0)));
-"160
-[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 4700000 `ul `d .4000.0 `ul ]
-"161
-}
-[e :U 376 ]
-[; ;Lab3.c: 161: }
-[; ;Lab3.c: 162: last_rc1 = rc1;
-"162
-[e = _last_rc1 _rc1 ]
-"165
-[v _rb1 `uc ~T0 @X0 1 a ]
-[; ;Lab3.c: 165: uint8_t rb1 = RB1;
-[e = _rb1 -> -> _RB1 `i `uc ]
-[; ;Lab3.c: 166: if (last_rb1 == 0 && rb1 == 1) {
-"166
-[e $ ! && == -> _last_rb1 `i -> 0 `i == -> _rb1 `i -> 1 `i 378  ]
-{
-[; ;Lab3.c: 167: reset_to_zero(started);
-"167
-[e ( _reset_to_zero (1 _started ]
-[; ;Lab3.c: 168: _delay((unsigned long)((50)*(4700000UL/4000.0)));
-"168
-[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 4700000 `ul `d .4000.0 `ul ]
-"169
-}
-[e :U 378 ]
-[; ;Lab3.c: 169: }
-[; ;Lab3.c: 170: last_rb1 = rb1;
-"170
-[e = _last_rb1 _rb1 ]
-"171
+[; ;Lab3.c: 115: }
+[; ;Lab3.c: 116: DECENAS_RGB++;
+"116
+[e ++ _DECENAS_RGB -> -> 1 `i `uc ]
+"117
 }
 [e :U 372 ]
-"147
-[e $U 373  ]
-[e :U 374 ]
-[; ;Lab3.c: 171: }
-[; ;Lab3.c: 172: }
-"172
-[e :UE 369 ]
-}
-"175
-[v _init_hw `(v ~T0 @X0 1 ef ]
+[; ;Lab3.c: 117: }
+[; ;Lab3.c: 119: if (DECENAS_RGB==6){
+"119
+[e $ ! == -> _DECENAS_RGB `i -> 6 `i 376  ]
 {
-[; ;Lab3.c: 175: void init_hw(void){
-[e :U _init_hw ]
-[f ]
-[; ;Lab3.c: 177: }
-"177
-[e :UE 379 ]
-}
-"179
-[v _hlvd_init_4v `(v ~T0 @X0 1 ef ]
+[; ;Lab3.c: 120: for(int i = 0; i < 2000; i++){
+"120
 {
-[; ;Lab3.c: 179: void hlvd_init_4v(void){
-[e :U _hlvd_init_4v ]
-[f ]
-[; ;Lab3.c: 182: HLVDCON = 0b00000000;
-"182
-[e = _HLVDCON -> -> 0 `i `uc ]
-[; ;Lab3.c: 189: HLVDCONbits.HLVDL = 0b1100;
-"189
-[e = . . _HLVDCONbits 0 0 -> -> 12 `i `uc ]
-[; ;Lab3.c: 190: HLVDCONbits.VDIRMAG = 0;
-"190
-[e = . . _HLVDCONbits 0 4 -> -> 0 `i `uc ]
-[; ;Lab3.c: 191: HLVDCONbits.HLVDEN = 1;
-"191
-[e = . . _HLVDCONbits 0 1 -> -> 1 `i `uc ]
-[; ;Lab3.c: 192: while (!HLVDCONbits.IRVST);
-"192
-[e $U 381  ]
-[e :U 382 ]
-[e :U 381 ]
-[e $ ! != -> . . _HLVDCONbits 0 2 `i -> -> -> 0 `i `Vuc `i 382  ]
-[e :U 383 ]
-[; ;Lab3.c: 194: HLVDIF = 0;
-"194
-[e = _HLVDIF -> -> 0 `i `b ]
-[; ;Lab3.c: 195: HLVDIP = 0;
-"195
-[e = _HLVDIP -> -> 0 `i `b ]
-[; ;Lab3.c: 196: HLVDIE = 1;
-"196
-[e = _HLVDIE -> -> 1 `i `b ]
-[; ;Lab3.c: 197: }
-"197
-[e :UE 380 ]
-}
-"199
-[v _tmr0_start `(v ~T0 @X0 1 ef ]
+[v _i `i ~T0 @X0 1 a ]
+[e = _i -> 0 `i ]
+[e $ < _i -> 2000 `i 377  ]
+[e $U 378  ]
+[e :U 377 ]
 {
-[; ;Lab3.c: 199: void tmr0_start(void){
-[e :U _tmr0_start ]
-[f ]
-[; ;Lab3.c: 201: T0CON = 0b00000011;
-"201
-[e = _T0CON -> -> 3 `i `uc ]
-[; ;Lab3.c: 218: TMR0IP = 0;
-"218
-[e = _TMR0IP -> -> 0 `i `b ]
-[; ;Lab3.c: 219: TMR0IF = 0;
-"219
-[e = _TMR0IF -> -> 0 `i `b ]
-[; ;Lab3.c: 220: TMR0IE = 1;
-"220
-[e = _TMR0IE -> -> 1 `i `b ]
-[; ;Lab3.c: 221: TMR0ON = 1;
-"221
-[e = _TMR0ON -> -> 1 `i `b ]
-[; ;Lab3.c: 222: }
-"222
-[e :UE 384 ]
-}
-"225
-[v _sevenseg_bcd `(v ~T0 @X0 1 ef1`uc ]
-{
-[; ;Lab3.c: 225: void sevenseg_bcd(uint8_t d){
-[e :U _sevenseg_bcd ]
-[v _d `uc ~T0 @X0 1 r1 ]
-[f ]
-"226
-[v _v `uc ~T0 @X0 1 a ]
-[; ;Lab3.c: 226: uint8_t v = (d & 0x0F);
-[e = _v -> & -> _d `i -> 15 `i `uc ]
-[; ;Lab3.c: 227: LATD = (LATD & 0xF0) | v;
-"227
-[e = _LATD -> | & -> _LATD `i -> 240 `i -> _v `i `uc ]
-[; ;Lab3.c: 228: }
-"228
-[e :UE 385 ]
-}
-"231
-[v _rgb_set `(v ~T0 @X0 1 ef3`uc`uc`uc ]
-{
-[; ;Lab3.c: 231: void rgb_set(uint8_t r, uint8_t g, uint8_t b){
-[e :U _rgb_set ]
-[v _r `uc ~T0 @X0 1 r1 ]
-[v _g `uc ~T0 @X0 1 r2 ]
-[v _b `uc ~T0 @X0 1 r3 ]
-[f ]
-[; ;Lab3.c: 232: LATE1 = r ? 1 : 0;
-"232
-[e = _LATE1 -> ? != -> _r `i -> -> -> 0 `i `uc `i : -> 1 `i -> 0 `i `b ]
-[; ;Lab3.c: 233: LATE0 = g ? 1 : 0;
-"233
-[e = _LATE0 -> ? != -> _g `i -> -> -> 0 `i `uc `i : -> 1 `i -> 0 `i `b ]
-[; ;Lab3.c: 234: LATE2 = b ? 1 : 0;
-"234
-[e = _LATE2 -> ? != -> _b `i -> -> -> 0 `i `uc `i : -> 1 `i -> 0 `i `b ]
-[; ;Lab3.c: 235: }
-"235
-[e :UE 386 ]
-}
-"237
-[v _set_rgb_by_decena `(v ~T0 @X0 1 ef1`uc ]
-{
-[; ;Lab3.c: 237: void set_rgb_by_decena(uint8_t d){
-[e :U _set_rgb_by_decena ]
-[v _d `uc ~T0 @X0 1 r1 ]
-[f ]
-[; ;Lab3.c: 238: switch (d % 6){
-"238
-[e $U 389  ]
-{
-[; ;Lab3.c: 239: case 0: rgb_set(1u,0u,1u); break;
-"239
-[e :U 390 ]
-[e ( _rgb_set (3 , , -> -> 1 `ui `uc -> -> 0 `ui `uc -> -> 1 `ui `uc ]
-[e $U 388  ]
-[; ;Lab3.c: 240: case 1: rgb_set(0u,0u,1u); break;
-"240
-[e :U 391 ]
-[e ( _rgb_set (3 , , -> -> 0 `ui `uc -> -> 0 `ui `uc -> -> 1 `ui `uc ]
-[e $U 388  ]
-[; ;Lab3.c: 241: case 2: rgb_set(0u,1u,1u); break;
-"241
-[e :U 392 ]
-[e ( _rgb_set (3 , , -> -> 0 `ui `uc -> -> 1 `ui `uc -> -> 1 `ui `uc ]
-[e $U 388  ]
-[; ;Lab3.c: 242: case 3: rgb_set(0u,1u,0u); break;
-"242
-[e :U 393 ]
-[e ( _rgb_set (3 , , -> -> 0 `ui `uc -> -> 1 `ui `uc -> -> 0 `ui `uc ]
-[e $U 388  ]
-[; ;Lab3.c: 243: case 4: rgb_set(1u,1u,0u); break;
-"243
-[e :U 394 ]
-[e ( _rgb_set (3 , , -> -> 1 `ui `uc -> -> 1 `ui `uc -> -> 0 `ui `uc ]
-[e $U 388  ]
-[; ;Lab3.c: 244: default: rgb_set(1u,1u,1u); break;
-"244
-[e :U 395 ]
-[e ( _rgb_set (3 , , -> -> 1 `ui `uc -> -> 1 `ui `uc -> -> 1 `ui `uc ]
-[e $U 388  ]
-"245
-}
-[; ;Lab3.c: 245: }
-[e $U 388  ]
-"238
-[e :U 389 ]
-[e [\ % -> _d `i -> 6 `i , $ -> 0 `i 390
- , $ -> 1 `i 391
- , $ -> 2 `i 392
- , $ -> 3 `i 393
- , $ -> 4 `i 394
- 395 ]
-"245
-[e :U 388 ]
-[; ;Lab3.c: 246: }
-"246
-[e :UE 387 ]
-}
-"248
-[v _beep_ms `(v ~T0 @X0 1 ef1`ui ]
-{
-[; ;Lab3.c: 248: void beep_ms(uint16_t ms){
-[e :U _beep_ms ]
-[v _ms `ui ~T0 @X0 1 r1 ]
-[f ]
-"249
-[v _n `ul ~T0 @X0 1 a ]
-[; ;Lab3.c: 249: uint32_t n = ((uint32_t)ms*1000u)/(2u*250u);
-[e = _n / * -> _ms `ul -> -> 1000 `ui `ul -> * -> 2 `ui -> 250 `ui `ul ]
-[; ;Lab3.c: 250: while(n--){
-"250
-[e $U 397  ]
-[e :U 398 ]
-{
-[; ;Lab3.c: 251: LATA2=1; _delay((unsigned long)((250u)*(4700000UL/4000000.0)));
-"251
+[; ;Lab3.c: 121: LATA2 = 1;
+"121
 [e = _LATA2 -> -> 1 `i `b ]
-[e ( __delay (1 -> * -> -> 250 `ui `d / -> -> 4700000 `ul `d .4000000.0 `ul ]
-[; ;Lab3.c: 252: LATA2=0; _delay((unsigned long)((250u)*(4700000UL/4000000.0)));
-"252
+[; ;Lab3.c: 122: _delay((unsigned long)((250)*(4000000/4000000.0)));
+"122
+[e ( __delay (1 -> * -> -> 250 `i `d / -> -> 4000000 `l `d .4000000.0 `ul ]
+[; ;Lab3.c: 123: LATA2 = 0;
+"123
 [e = _LATA2 -> -> 0 `i `b ]
-[e ( __delay (1 -> * -> -> 250 `ui `d / -> -> 4700000 `ul `d .4000000.0 `ul ]
-"253
+[; ;Lab3.c: 124: _delay((unsigned long)((250)*(4000000/4000000.0)));
+"124
+[e ( __delay (1 -> * -> -> 250 `i `d / -> -> 4000000 `l `d .4000000.0 `ul ]
+"125
+}
+"120
+[e ++ _i -> 1 `i ]
+[e $ < _i -> 2000 `i 377  ]
+[e :U 378 ]
+"125
+}
+[; ;Lab3.c: 125: }
+[; ;Lab3.c: 126: DECENAS_RGB = 0;
+"126
+[e = _DECENAS_RGB -> -> 0 `i `uc ]
+"128
+}
+[e :U 376 ]
+[; ;Lab3.c: 128: }
+[; ;Lab3.c: 129: LATD=segmentos;
+"129
+[e = _LATD _segmentos ]
+[; ;Lab3.c: 138: if(DECENAS_RGB==0){
+"138
+[e $ ! == -> _DECENAS_RGB `i -> 0 `i 380  ]
+{
+[; ;Lab3.c: 139: LATE=0b00000001;
+"139
+[e = _LATE -> -> 1 `i `uc ]
+"140
+}
+[; ;Lab3.c: 140: }else if(DECENAS_RGB==1){
+[e $U 381  ]
+[e :U 380 ]
+[e $ ! == -> _DECENAS_RGB `i -> 1 `i 382  ]
+{
+[; ;Lab3.c: 141: LATE=0b00000101;
+"141
+[e = _LATE -> -> 5 `i `uc ]
+"142
+}
+[; ;Lab3.c: 142: }else if(DECENAS_RGB==2){
+[e $U 383  ]
+[e :U 382 ]
+[e $ ! == -> _DECENAS_RGB `i -> 2 `i 384  ]
+{
+[; ;Lab3.c: 143: LATE=0b00000100;
+"143
+[e = _LATE -> -> 4 `i `uc ]
+"144
+}
+[; ;Lab3.c: 144: }else if(DECENAS_RGB==3){
+[e $U 385  ]
+[e :U 384 ]
+[e $ ! == -> _DECENAS_RGB `i -> 3 `i 386  ]
+{
+[; ;Lab3.c: 145: LATE=0b00000110;
+"145
+[e = _LATE -> -> 6 `i `uc ]
+"146
+}
+[; ;Lab3.c: 146: }else if(DECENAS_RGB==4){
+[e $U 387  ]
+[e :U 386 ]
+[e $ ! == -> _DECENAS_RGB `i -> 4 `i 388  ]
+{
+[; ;Lab3.c: 147: LATE=0b00000010;
+"147
+[e = _LATE -> -> 2 `i `uc ]
+"148
+}
+[; ;Lab3.c: 148: }else if(DECENAS_RGB==5){
+[e $U 389  ]
+[e :U 388 ]
+[e $ ! == -> _DECENAS_RGB `i -> 5 `i 390  ]
+{
+[; ;Lab3.c: 149: LATE=0b00000000;
+"149
+[e = _LATE -> -> 0 `i `uc ]
+"150
+}
+[e :U 390 ]
+"152
+[e :U 389 ]
+[e :U 387 ]
+[e :U 385 ]
+[e :U 383 ]
+[e :U 381 ]
+[; ;Lab3.c: 150: }
+[; ;Lab3.c: 152: sensor=1;
+[e = _sensor -> -> 1 `i `uc ]
+"153
+}
+[e :U 371 ]
+"154
+}
+[e :U 370 ]
+"155
+}
+[e :U 366 ]
+"96
+[e $U 367  ]
+[e :U 368 ]
+[; ;Lab3.c: 153: }
+[; ;Lab3.c: 154: }
+[; ;Lab3.c: 155: }
+[; ;Lab3.c: 156: }
+"156
+[e :UE 362 ]
+}
+[v $root$_ISR `(v ~T0 @X0 0 e ]
+"171
+[v _ISR `(v ~T42 @X0 1 ef ]
+{
+[; ;Lab3.c: 171: void __interrupt()ISR(void){
+[e :U _ISR ]
+[f ]
+[; ;Lab3.c: 172: if(TMR0IF==1){
+"172
+[e $ ! == -> _TMR0IF `i -> 1 `i 392  ]
+{
+[; ;Lab3.c: 173: if(Retorno==0){
+"173
+[e $ ! == -> _Retorno `i -> 0 `i 393  ]
+{
+[; ;Lab3.c: 174: TMR0=34286;
+"174
+[e = _TMR0 -> -> 34286 `l `us ]
+[; ;Lab3.c: 175: TMR0IF=0;
+"175
+[e = _TMR0IF -> -> 0 `i `b ]
+[; ;Lab3.c: 176: LATA1=LATA1^1;
+"176
+[e = _LATA1 -> ^ -> _LATA1 `i -> 1 `i `b ]
+"177
+}
+[; ;Lab3.c: 177: }
+[e $U 394  ]
+"178
+[e :U 393 ]
+[; ;Lab3.c: 178: else if(Retorno == 1){
+[e $ ! == -> _Retorno `i -> 1 `i 395  ]
+{
+[; ;Lab3.c: 181: TMR0=49911 ;
+"181
+[e = _TMR0 -> -> 49911 `l `us ]
+[; ;Lab3.c: 184: TMR0IF=0;
+"184
+[e = _TMR0IF -> -> 0 `i `b ]
+[; ;Lab3.c: 185: LATA1=LATA1^1;
+"185
+[e = _LATA1 -> ^ -> _LATA1 `i -> 1 `i `b ]
+[; ;Lab3.c: 186: Retorno=0;
+"186
+[e = _Retorno -> -> 0 `i `uc ]
+"187
+}
+[e :U 395 ]
+"189
+[e :U 394 ]
+}
+[e :U 392 ]
+[; ;Lab3.c: 187: }
+[; ;Lab3.c: 189: }
+[; ;Lab3.c: 192: if (HLVDIF)
+"192
+[e $ ! _HLVDIF 396  ]
+[; ;Lab3.c: 193: {
+"193
+{
+[; ;Lab3.c: 194: Retorno=1;
+"194
+[e = _Retorno -> -> 1 `i `uc ]
+[; ;Lab3.c: 195: HLVDIF = 0;
+"195
+[e = _HLVDIF -> -> 0 `i `b ]
+"196
+}
+[e :U 396 ]
+[; ;Lab3.c: 196: }
+[; ;Lab3.c: 198: if (INT0IF==1){
+"198
+[e $ ! == -> _INT0IF `i -> 1 `i 397  ]
+{
+[; ;Lab3.c: 199: INT0IF=0;
+"199
+[e = _INT0IF -> -> 0 `i `b ]
+[; ;Lab3.c: 200: LATE=0b00000011;
+"200
+[e = _LATE -> -> 3 `i `uc ]
+[; ;Lab3.c: 201: while(1){
+"201
+[e :U 399 ]
+{
+[; ;Lab3.c: 205: if(TMR0IF==1){
+"205
+[e $ ! == -> _TMR0IF `i -> 1 `i 401  ]
+{
+[; ;Lab3.c: 206: if(Retorno==0){
+"206
+[e $ ! == -> _Retorno `i -> 0 `i 402  ]
+{
+[; ;Lab3.c: 207: TMR0=34286;
+"207
+[e = _TMR0 -> -> 34286 `l `us ]
+[; ;Lab3.c: 208: TMR0IF=0;
+"208
+[e = _TMR0IF -> -> 0 `i `b ]
+[; ;Lab3.c: 209: LATA1=LATA1^1;
+"209
+[e = _LATA1 -> ^ -> _LATA1 `i -> 1 `i `b ]
+"210
+}
+[; ;Lab3.c: 210: }
+[e $U 403  ]
+"212
+[e :U 402 ]
+[; ;Lab3.c: 212: else if(Retorno == 1){
+[e $ ! == -> _Retorno `i -> 1 `i 404  ]
+{
+[; ;Lab3.c: 213: TMR0=49911 ;
+"213
+[e = _TMR0 -> -> 49911 `l `us ]
+[; ;Lab3.c: 216: TMR0IF=0;
+"216
+[e = _TMR0IF -> -> 0 `i `b ]
+[; ;Lab3.c: 217: LATA1=LATA1^1;
+"217
+[e = _LATA1 -> ^ -> _LATA1 `i -> 1 `i `b ]
+[; ;Lab3.c: 218: Retorno=0;
+"218
+[e = _Retorno -> -> 0 `i `uc ]
+"219
+}
+[e :U 404 ]
+"221
+[e :U 403 ]
+}
+[e :U 401 ]
+"245
+}
+[e :U 398 ]
+"201
+[e $U 399  ]
+[e :U 400 ]
+"246
 }
 [e :U 397 ]
+[; ;Lab3.c: 219: }
+[; ;Lab3.c: 221: }
+[; ;Lab3.c: 245: }
+[; ;Lab3.c: 246: }
+[; ;Lab3.c: 247: if (INT1IF==1){
+"247
+[e $ ! == -> _INT1IF `i -> 1 `i 405  ]
+{
+[; ;Lab3.c: 248: INT1IF=0;
+"248
+[e = _INT1IF -> -> 0 `i `b ]
+[; ;Lab3.c: 249: segmentos=0;
+"249
+[e = _segmentos -> -> 0 `i `uc ]
+[; ;Lab3.c: 250: DECENAS_RGB=0;
 "250
-[e $ != -- _n -> -> -> 1 `i `l `ul -> -> 0 `i `ul 398  ]
-[e :U 399 ]
+[e = _DECENAS_RGB -> -> 0 `i `uc ]
+[; ;Lab3.c: 251: LATD=segmentos;
+"251
+[e = _LATD _segmentos ]
+[; ;Lab3.c: 252: LATE=0b00000001;
+"252
+[e = _LATE -> -> 1 `i `uc ]
+"253
+}
+[e :U 405 ]
 [; ;Lab3.c: 253: }
 [; ;Lab3.c: 254: }
 "254
-[e :UE 396 ]
-}
-"257
-[v _advance_one_press `(v ~T0 @X0 1 ef ]
-{
-[; ;Lab3.c: 257: void advance_one_press(void){
-[e :U _advance_one_press ]
-[f ]
-[; ;Lab3.c: 258: if (finished){
-"258
-[e $ ! != -> _finished `i -> -> -> 0 `i `Vuc `i 401  ]
-{
-[; ;Lab3.c: 259: reset_to_zero(1);
-"259
-[e ( _reset_to_zero (1 -> -> 1 `i `uc ]
-[; ;Lab3.c: 260: beep_ms(1000);
-"260
-[e ( _beep_ms (1 -> -> 1000 `i `ui ]
-[; ;Lab3.c: 261: finished = 0;
-"261
-[e = _finished -> -> 0 `i `uc ]
-[; ;Lab3.c: 262: return;
-"262
-[e $UE 400  ]
-"263
-}
-[e :U 401 ]
-[; ;Lab3.c: 263: }
-[; ;Lab3.c: 265: if (unidades < 9){
-"265
-[e $ ! < -> _unidades `i -> 9 `i 402  ]
-{
-[; ;Lab3.c: 266: unidades++;
-"266
-[e ++ _unidades -> -> 1 `i `uc ]
-"267
-}
-[; ;Lab3.c: 267: } else {
-[e $U 403  ]
-[e :U 402 ]
-{
-[; ;Lab3.c: 268: unidades = 0;
-"268
-[e = _unidades -> -> 0 `i `uc ]
-[; ;Lab3.c: 269: if (decenas < 5){
-"269
-[e $ ! < -> _decenas `i -> 5 `i 404  ]
-{
-[; ;Lab3.c: 270: decenas++;
-"270
-[e ++ _decenas -> -> 1 `i `uc ]
-[; ;Lab3.c: 271: set_rgb_by_decena(decenas);
-"271
-[e ( _set_rgb_by_decena (1 _decenas ]
-[; ;Lab3.c: 272: beep_ms(80);
-"272
-[e ( _beep_ms (1 -> -> 80 `i `ui ]
-"273
-}
-[; ;Lab3.c: 273: } else {
-[e $U 405  ]
-[e :U 404 ]
-{
-[; ;Lab3.c: 274: decenas = 5; unidades = 9;
-"274
-[e = _decenas -> -> 5 `i `uc ]
-[e = _unidades -> -> 9 `i `uc ]
-[; ;Lab3.c: 275: finished = 1;
-"275
-[e = _finished -> -> 1 `i `uc ]
-"276
-}
-[e :U 405 ]
-"277
-}
-[e :U 403 ]
-[; ;Lab3.c: 276: }
-[; ;Lab3.c: 277: }
-[; ;Lab3.c: 278: sevenseg_bcd(unidades);
-"278
-[e ( _sevenseg_bcd (1 _unidades ]
-[; ;Lab3.c: 279: }
-"279
-[e :UE 400 ]
-}
-"281
-[v _reset_to_zero `(v ~T0 @X0 1 ef1`uc ]
-{
-[; ;Lab3.c: 281: void reset_to_zero(uint8_t keep_started){
-[e :U _reset_to_zero ]
-[v _keep_started `uc ~T0 @X0 1 r1 ]
-[f ]
-[; ;Lab3.c: 282: unidades = 0;
-"282
-[e = _unidades -> -> 0 `i `uc ]
-[; ;Lab3.c: 283: decenas = 0;
-"283
-[e = _decenas -> -> 0 `i `uc ]
-[; ;Lab3.c: 284: finished = 0;
-"284
-[e = _finished -> -> 0 `i `uc ]
-[; ;Lab3.c: 285: sevenseg_bcd(0);
-"285
-[e ( _sevenseg_bcd (1 -> -> 0 `i `uc ]
-[; ;Lab3.c: 286: if (keep_started){ set_rgb_by_decena(0); }
-"286
-[e $ ! != -> _keep_started `i -> -> -> 0 `i `uc `i 407  ]
-{
-[e ( _set_rgb_by_decena (1 -> -> 0 `i `uc ]
-}
-[e $U 408  ]
-"287
-[e :U 407 ]
-[; ;Lab3.c: 287: else { rgb_set(0u,0u,0u); }
-{
-[e ( _rgb_set (3 , , -> -> 0 `ui `uc -> -> 0 `ui `uc -> -> 0 `ui `uc ]
-}
-[e :U 408 ]
-[; ;Lab3.c: 288: started = keep_started;
-"288
-[e = _started _keep_started ]
-[; ;Lab3.c: 289: }
-"289
-[e :UE 406 ]
+[e :UE 391 ]
 }
